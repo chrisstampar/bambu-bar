@@ -20,6 +20,13 @@ final class UpdateChecker {
     }
 
     nonisolated static let repository = "rolottr/bambu-bar"
+
+    /// The App Store keeps its copies up to date, and App Review doesn't allow apps to offer updates themselves.
+    #if APP_STORE
+        nonisolated static let isAvailable = false
+    #else
+        nonisolated static let isAvailable = true
+    #endif
     private static let interval: TimeInterval = 24 * 60 * 60
 
     private enum Key {
@@ -56,7 +63,7 @@ final class UpdateChecker {
     /// Checks shortly after launch, then hourly whether a day has passed, since the app can run for weeks in the
     /// menu bar.
     func startAutomaticChecks() {
-        guard schedule == nil, !LaunchContext.isDeveloperRun else { return }
+        guard Self.isAvailable, schedule == nil, !LaunchContext.isDeveloperRun else { return }
         schedule = Task { [weak self] in
             try? await Task.sleep(for: .seconds(10))
             while !Task.isCancelled {

@@ -160,7 +160,9 @@ struct SettingsPage: View {
                     .fixedSize(horizontal: false, vertical: true)
             }
 
-            UpdatesGroup()
+            if UpdateChecker.isAvailable {
+                UpdatesGroup()
+            }
 
             group("Desktop widget", symbol: "widget.small") {
                 HStack {

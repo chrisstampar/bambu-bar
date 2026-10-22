@@ -39,7 +39,7 @@ It talks to the printer directly over your network, the same way Bambu Studio do
 | **Notifications** | Print finished, failed or canceled, paused (filament runout and the like), new printer errors, and optionally when a print starts. |
 | **Easy setup** | Finds printers on your network and reads the access codes from Bambu Studio or OrcaSlicer, on this Mac or from a settings file copied from another one. When the slicer knows several printers, **Add All** sets them all up at once. |
 | **Mac integration** | Open at Login, no Dock icon while it lives in the menu bar (the icon and menus appear while its window is open), keyboard shortcuts, and it follows the printer when DHCP gives it a new address. |
-| **Updates** | Checks GitHub once a day for a new release (turn it off in Settings) and offers the download; **Check for Updates…** in the app menu asks right away. It never installs anything by itself. |
+| **Updates** | The App Store version updates through the App Store. Copies from GitHub check GitHub once a day for a new release (turn it off in Settings) and offers the download; **Check for Updates…** in the app menu asks right away. It never installs anything by itself. |
 
 ## Getting started
 
@@ -100,12 +100,14 @@ Printers announce themselves on UDP port 2021; that's how Bambu Bar lists them d
 
 ## Privacy and local storage
 
-No account, no analytics, no cloud. Bambu Bar talks to your printers on your local network. Its only other request is the optional daily update check, which reads this project's latest release from the GitHub API and sends nothing about you or your printers.
+No account, no analytics, no cloud. Bambu Bar talks to your printers on your local network. Copies from GitHub make one other request, the optional daily update check, which reads this project's latest release from the GitHub API and sends nothing about you or your printers; the App Store version makes none. The full [privacy policy](PRIVACY.md) is the one the App Store links to.
 
 - **Printers (address, serial, name) and preferences:** local macOS user defaults.
 - **Access codes:** your login keychain.
 - **Last prints** (for "Last: …" and finish times, only what the app saw while running): `~/Library/Application Support/Bambu Bar/history.json`.
 - **Widget snapshot:** `~/Library/Group Containers/<team>.dev.rolottr.BambuBar/printers.json`.
+
+The App Store version is sandboxed, so its settings and history live in `~/Library/Containers/dev.rolottr.BambuBar` instead, and it reads Bambu Studio's access codes only after you choose its folder during setup.
 
 ## Building from source
 
@@ -136,6 +138,16 @@ shasum -a 256 -c Bambu-Bar-1.0.0-macos.zip.sha256
 ```
 
 The [GitHub Actions workflow](.github/workflows/build.yml) builds and uploads an ad-hoc signed ZIP on pushes and pull requests. It does not sign, notarize or publish a release.
+
+### Mac App Store build
+
+```sh
+./scripts/appstore.sh             # archive + export build/AppStore/Export/Bambu Bar.pkg
+UPLOAD=1 ./scripts/appstore.sh    # archive + upload to App Store Connect
+./scripts/appstore-screenshots.sh # 1440×900 store screenshots from the demo printers
+```
+
+The **AppStore** configuration (scheme **BambuBar App Store**, also for Product → Archive in Xcode after `scripts/generate.sh`) builds a sandboxed app with Xcode's automatic signing, leaves out the GitHub update checker and asks for Bambu Studio's folder instead of reading it directly.
 
 ### Developing without a printer
 

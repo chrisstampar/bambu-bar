@@ -24,15 +24,7 @@ mkdir -p "$BUILD"
 if [[ -z "${DEVELOPER_DIR:-}" ]] && ! xcodebuild -version >/dev/null 2>&1; then
   export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
 fi
-command -v xcodegen >/dev/null || { echo "xcodegen is required: brew install xcodegen" >&2; exit 2; }
-
-echo "==> App icon"
-rm -rf "$BUILD/AppIcon.iconset"
-swift "$ROOT/scripts/generate-icon.swift" "$BUILD/AppIcon.iconset" >/dev/null
-iconutil -c icns "$BUILD/AppIcon.iconset" -o "$ROOT/Resources/AppIcon.icns"
-
-echo "==> Generating Xcode project"
-xcodegen generate --quiet --spec "$ROOT/project.yml" --project "$ROOT"
+"$ROOT/scripts/generate.sh"
 
 echo "==> xcodebuild ($CONFIG)"
 xcodebuild -project BambuBar.xcodeproj -scheme BambuBar -configuration "$CONFIG" \

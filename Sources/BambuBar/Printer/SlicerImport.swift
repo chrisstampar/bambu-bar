@@ -24,9 +24,42 @@ enum SlicerImport {
     static let knownApps = [("BambuStudio", "Bambu Studio"), ("BambuStudioBeta", "Bambu Studio Beta"),
                             ("OrcaSlicer", "OrcaSlicer"), ("OrcaSlicerNightly", "OrcaSlicer Nightly")]
 
-    /// This Mac's `~/Library/Application Support`.
+    /// This Mac's `~/Library/Application Support`: the person's own, not the sandbox container's.
     static var localSupport: URL? {
-        FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
+        guard let entry = getpwuid(getuid()), let home = entry.pointee.pw_dir else {
+            return FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
+        }
+        return URL(fileURLWithPath: String(cString: home), isDirectory: true)
+            .appendingPathComponent("Library/Application Support", isDirectory: true)
+    }
+
+    /// The App Store build runs in the App Sandbox, which only opens folders the person chose.
+    static let isSandboxed = ProcessInfo.processInfo.environment["APP_SANDBOX_CONTAINER_ID"] != nil
+    private static let bookmarkKey = "slicerFolderBookmark"
+
+    /// Sandboxed and not yet given a slicer folder: setup asks for one.
+    static var needsAccess: Bool {
+        isSandboxed && UserDefaults.standard.data(forKey: bookmarkKey) == nil
+    }
+
+    /// Keeps the folder (or file) the person picked so later scans can read it again (sandboxed builds only).
+    static func rememberAccess(to url: URL) {
+        guard isSandboxed,
+              let data = try? url.bookmarkData(options: [.withSecurityScope, .securityScopeAllowOnlyReadAccess],
+                                               includingResourceValuesForKeys: nil, relativeTo: nil) else { return }
+        UserDefaults.standard.set(data, forKey: bookmarkKey)
+    }
+
+    /// The remembered folder, or nil (and forgotten, so setup asks again) when it can't be resolved any more.
+    private static var grantedFolder: URL? {
+        guard let data = UserDefaults.standard.data(forKey: bookmarkKey) else { return nil }
+        var stale = false
+        guard let url = try? URL(resolvingBookmarkData: data, options: .withSecurityScope, bookmarkDataIsStale: &stale) else {
+            UserDefaults.standard.removeObject(forKey: bookmarkKey)
+            return nil
+        }
+        if stale { rememberAccess(to: url) }
+        return url
     }
 
     /// Where the file panel should open: Bambu Studio's folder when there is one, else Application Support.
@@ -41,8 +74,14 @@ enum SlicerImport {
 
     /// Every printer with a stored access code in this Mac's slicers.
     static func scan() -> [SlicerPrinter] {
-        guard let support = localSupport else { return [] }
-        return read(supportFolder: support, suffix: nil)
+        guard isSandboxed else {
+            guard let support = localSupport else { return [] }
+            return read(supportFolder: support, suffix: nil)
+        }
+        guard let folder = grantedFolder else { return [] }
+        let scoped = folder.startAccessingSecurityScopedResource()
+        defer { if scoped { folder.stopAccessingSecurityScopedResource() } }
+        return read(picked: folder)
     }
 
     private static func read(supportFolder: URL, suffix: String?) -> [SlicerPrinter] {

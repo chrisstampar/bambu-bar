@@ -46,16 +46,18 @@ struct AboutPage: View {
                 DetailRow(title: "Version", value: "\(AppInfo.version) (\(AppInfo.build))")
                 DetailRow(title: "System", value: "\(AppInfo.system) · \(AppInfo.architecture)")
                 DetailRow(title: "License", value: "MIT, free and open source")
-                HStack {
-                    Text("Updates").font(.system(size: 12)).foregroundStyle(.secondary)
-                    Spacer()
-                    Text(updateLine).font(.system(size: 12)).foregroundStyle(updates.available == nil ? .secondary : Palette.accent)
-                    if let release = updates.available {
-                        Button("Download") { updates.download(release) }.controlSize(.small)
-                    } else if updates.state == .checking {
-                        ProgressView().controlSize(.small)
-                    } else {
-                        Button("Check Now") { Task { await updates.check() } }.controlSize(.small)
+                if UpdateChecker.isAvailable {
+                    HStack {
+                        Text("Updates").font(.system(size: 12)).foregroundStyle(.secondary)
+                        Spacer()
+                        Text(updateLine).font(.system(size: 12)).foregroundStyle(updates.available == nil ? .secondary : Palette.accent)
+                        if let release = updates.available {
+                            Button("Download") { updates.download(release) }.controlSize(.small)
+                        } else if updates.state == .checking {
+                            ProgressView().controlSize(.small)
+                        } else {
+                            Button("Check Now") { Task { await updates.check() } }.controlSize(.small)
+                        }
                     }
                 }
                 HStack {
@@ -73,7 +75,11 @@ struct AboutPage: View {
 
             section("Privacy") {
                 paragraph("No account, no cloud, no analytics. Bambu Bar talks to your printer on your network, and the access code is stored in your keychain.")
-                paragraph("Its only other request is the optional daily update check, which reads this project's latest release on GitHub and sends nothing about you or your printers. Turn it off in Settings → Updates.")
+                if UpdateChecker.isAvailable {
+                    paragraph("Its only other request is the optional daily update check, which reads this project's latest release on GitHub and sends nothing about you or your printers. Turn it off in Settings → Updates.")
+                } else {
+                    paragraph("It makes no other network requests. Updates come from the App Store.")
+                }
             }
 
             section("Links") {
