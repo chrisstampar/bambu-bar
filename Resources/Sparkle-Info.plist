@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Sparkle's settings, merged into the Developer ID build's Info.plist by scripts/build.sh. The App Store build
+     doesn't get them: it has no updater of its own. SUPublicEDKey is the public half of the EdDSA key in the
+     login keychain that scripts/appcast.sh signs updates with. -->
+<plist version="1.0">
+<dict>
+	<key>SUEnableAutomaticChecks</key>
+	<true/>
+	<key>SUFeedURL</key>
+	<string>https://github.com/rolottr/bambu-bar/releases/latest/download/appcast.xml</string>
+	<key>SUPublicEDKey</key>
+	<string>TwKjQ7USQKbkf0Q0zq6N+17GXDxhmxXlxteHJn0T4jE=</string>
+	<key>SUScheduledCheckInterval</key>
+	<integer>86400</integer>
+	<key>SUVerifyUpdateBeforeExtraction</key>
+	<true/>
+</dict>
+</plist>

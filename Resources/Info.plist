@@ -12,6 +12,8 @@
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIconFile</key>
 	<string>AppIcon</string>
+	<key>CFBundleIconName</key>
+	<string>AppIcon</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -35,6 +37,8 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.utilities</string>
 	<key>LSMinimumSystemVersion</key>
@@ -51,15 +55,5 @@
 	<string>Bambu Bar finds your Bambu Lab printer on your network and reads its status directly from it, without any cloud service.</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
-	<key>SUEnableAutomaticChecks</key>
-	<true/>
-	<key>SUFeedURL</key>
-	<string>https://github.com/rolottr/bambu-bar/releases/latest/download/appcast.xml</string>
-	<key>SUPublicEDKey</key>
-	<string>TwKjQ7USQKbkf0Q0zq6N+17GXDxhmxXlxteHJn0T4jE=</string>
-	<key>SUScheduledCheckInterval</key>
-	<integer>86400</integer>
-	<key>SUVerifyUpdateBeforeExtraction</key>
-	<true/>
 </dict>
 </plist>

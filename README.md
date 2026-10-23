@@ -40,7 +40,7 @@ It talks to the printer directly over your network, the same way Bambu Studio do
 | **Easy setup** | Finds printers on your network and reads the access codes from Bambu Studio or OrcaSlicer, on this Mac or from a settings file copied from another one. When the slicer knows several printers, **Add All** sets them all up at once. |
 | **Mac integration** | Open at Login, no Dock icon while it lives in the menu bar (the icon and menus appear while its window is open), keyboard shortcuts, and it follows the printer when DHCP gives it a new address. |
 | **17 languages** | English, Čeština, Deutsch, Español, Français, Italiano, Magyar, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, Русский, Українська, 日本語, 한국어, 简体中文 and 繁體中文. It follows your Mac's language, or the one picked in **Settings → Language**. Printer terms follow Bambu Studio's translations, and printer errors use Bambu Lab's own texts where Bambu publishes them (all but Czech, Turkish and Ukrainian, which show them in English, and Traditional Chinese, which shows the Simplified ones). |
-| **Updates** | Checks GitHub once a day for a new release (turn it off in Settings) and shows what's new with **Install Update**, **Skip This Version** or **Remind Me Later**; installing downloads it, verifies its signature and restarts the app. **Check for Updates…** in the app menu asks right away, and Settings can install updates automatically. |
+| **Updates** | The App Store version updates through the App Store. Copies from GitHub check GitHub once a day for a new release (turn it off in Settings) and show what's new with **Install Update**, **Skip This Version** or **Remind Me Later**; installing downloads it, verifies its signature and restarts the app. **Check for Updates…** in the app menu asks right away, and Settings can install updates automatically. |
 
 ## Getting started
 
@@ -101,12 +101,14 @@ Printers announce themselves on UDP port 2021; that's how Bambu Bar lists them d
 
 ## Privacy and local storage
 
-No account, no analytics, no cloud. Bambu Bar talks to your printers on your local network. Its only other request is the optional daily update check, which reads the update feed attached to this project's latest GitHub release and sends nothing about you or your printers. Updates install only when they carry the developer's EdDSA signature.
+No account, no analytics, no cloud. Bambu Bar talks to your printers on your local network. Copies from GitHub make one other request, the optional daily update check, which reads the update feed attached to this project's latest GitHub release and sends nothing about you or your printers (updates install only when they carry the developer's EdDSA signature); the App Store version makes none. The full [privacy policy](PRIVACY.md) is the one the App Store links to.
 
 - **Printers (address, serial, name) and preferences:** local macOS user defaults.
 - **Access codes:** your login keychain.
 - **Last prints** (for "Last: …" and finish times, only what the app saw while running): `~/Library/Application Support/Bambu Bar/history.json`.
 - **Widget snapshot:** `~/Library/Group Containers/<team>.dev.rolottr.BambuBar/printers.json`.
+
+The App Store version is sandboxed, so its settings and history live in `~/Library/Containers/dev.rolottr.BambuBar` instead, and it reads Bambu Studio's access codes only after you choose its folder during setup.
 
 ## Building from source
 
@@ -144,9 +146,19 @@ In-app updates use [Sparkle](https://sparkle-project.org). After `gh release cre
 UPLOAD=1 ./scripts/appcast.sh
 ```
 
-It signs the zip with the EdDSA key in the login keychain (`SUPublicEDKey` in Info.plist is its public half), turns the release's text into the release notes shown in the update window, and attaches `appcast.xml` to the release. The app reads `releases/latest/download/appcast.xml`, so the newest release's feed is the one that counts. Back the key up with Sparkle's `generate_keys -x <file>` (in `build/DerivedData.noindex/SourcePackages/artifacts/sparkle/Sparkle/bin`): without it, installed copies can't be updated.
+It signs the zip with the EdDSA key in the login keychain (`SUPublicEDKey` in `Resources/Sparkle-Info.plist` is its public half; build.sh adds that file to the GitHub build only), turns the release's text into the release notes shown in the update window, and attaches `appcast.xml` to the release. The app reads `releases/latest/download/appcast.xml`, so the newest release's feed is the one that counts. Back the key up with Sparkle's `generate_keys -x <file>` (in `build/DerivedData.noindex/SourcePackages/artifacts/sparkle/Sparkle/bin`): without it, installed copies can't be updated.
 
 The [GitHub Actions workflow](.github/workflows/build.yml) builds and uploads an ad-hoc signed ZIP on pushes and pull requests. It does not sign, notarize or publish a release.
+
+### Mac App Store build
+
+```sh
+./scripts/appstore.sh             # archive + export build/AppStore/Export/Bambu Bar.pkg
+UPLOAD=1 ./scripts/appstore.sh    # archive + upload to App Store Connect
+./scripts/appstore-screenshots.sh # 1440×900 store screenshots from the demo printers
+```
+
+The **AppStore** configuration (scheme **BambuBar App Store**, also for Product → Archive in Xcode after `scripts/generate.sh`) builds a sandboxed app with Xcode's automatic signing, leaves out the GitHub update checker and asks for Bambu Studio's folder instead of reading it directly.
 
 ### Developing without a printer
 

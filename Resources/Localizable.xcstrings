@@ -7371,6 +7371,113 @@
         }
       }
     },
+    "Allow": {
+      "comment": "Open panel button that grants access to a folder",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Povolit"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erlauben"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Permitir"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Autoriser"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Engedélyezés"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consenti"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "許可"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "허용"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sta toe"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zezwól"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Permitir"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Разрешить"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tillåt"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İzin Ver"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дозволити"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "允许"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "允許"
+          }
+        }
+      }
+    },
     "Allow Bambu Bar in System Settings → General → Login Items.": {
       "localizations": {
         "cs": {
@@ -15364,6 +15471,112 @@
         }
       }
     },
+    "Choose Folder…": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vybrat složku…"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ordner auswählen …"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elegir carpeta…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisir un dossier…"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mappa kiválasztása…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scegli cartella…"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "フォルダを選択…"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "폴더 선택…"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kies map…"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wybierz folder…"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escolher Pasta…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выбрать папку…"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Välj mapp…"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Klasör Seç…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вибрати папку…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "选择文件夹…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選擇檔案夾⋯"
+          }
+        }
+      }
+    },
     "Choose a printer": {
       "localizations": {
         "cs": {
@@ -15466,6 +15679,218 @@
           "stringUnit": {
             "state": "translated",
             "value": "選擇印表機"
+          }
+        }
+      }
+    },
+    "Choose its **BambuStudio** folder (or OrcaSlicer's) once, and Bambu Bar reads the access codes it saved. A **BambuStudio.conf** from another Mac can be dropped here too.": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jednou vyberte jeho složku **BambuStudio** (nebo složku OrcaSliceru) a Bambu Bar načte přístupové kódy, které uložil. Můžete sem přetáhnout i soubor **BambuStudio.conf** z jiného Macu."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wählen Sie einmal den Ordner **BambuStudio** (oder den von OrcaSlicer), und Bambu Bar liest die dort gespeicherten Zugangscodes. Eine **BambuStudio.conf** von einem anderen Mac können Sie auch hier ablegen."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elija una vez su carpeta **BambuStudio** (o la de OrcaSlicer) y Bambu Bar leerá los códigos de acceso que guardó. También puede soltar aquí un **BambuStudio.conf** de otro Mac."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisissez une fois son dossier **BambuStudio** (ou celui d’OrcaSlicer) et Bambu Bar lira les codes d’accès qu’il a enregistrés. Vous pouvez aussi déposer ici un fichier **BambuStudio.conf** d’un autre Mac."
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Válaszd ki egyszer a **BambuStudio** mappát (vagy az OrcaSlicerét), és a Bambu Bar beolvassa az ott mentett hozzáférési kódokat. Egy másik Mac **BambuStudio.conf** fájlját is ide húzhatod."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scegli una volta la sua cartella **BambuStudio** (o quella di OrcaSlicer) e Bambu Bar legge i codici di accesso salvati. Puoi anche trascinare qui un **BambuStudio.conf** da un altro Mac."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "**BambuStudio**フォルダ（またはOrcaSlicerのフォルダ）を一度選択すると、Bambu Barが保存されたアクセスコードを読み込みます。別のMacの**BambuStudio.conf**をここにドロップすることもできます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "**BambuStudio** 폴더(또는 OrcaSlicer 폴더)를 한 번 선택하면 Bambu Bar가 저장된 액세스 코드를 읽습니다. 다른 Mac의 **BambuStudio.conf** 파일을 여기에 놓을 수도 있습니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kies eenmalig de map **BambuStudio** (of die van OrcaSlicer) en Bambu Bar leest de opgeslagen toegangscodes. U kunt hier ook een **BambuStudio.conf** van een andere Mac neerzetten."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wybierz raz jego folder **BambuStudio** (lub folder OrcaSlicer), a Bambu Bar odczyta zapisane w nim kody dostępu. Możesz tu też upuścić plik **BambuStudio.conf** z innego Maca."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escolha uma vez a pasta **BambuStudio** (ou a do OrcaSlicer) e o Bambu Bar lê os códigos de acesso salvos nela. Também dá para soltar aqui um **BambuStudio.conf** de outro Mac."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Один раз выберите папку **BambuStudio** (или папку OrcaSlicer), и Bambu Bar прочитает сохранённые в ней коды доступа. Сюда можно перетащить и **BambuStudio.conf** с другого Mac."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Välj dess **BambuStudio**-mapp (eller OrcaSlicers) en gång, så läser Bambu Bar åtkomstkoderna som sparats där. Du kan också släppa en **BambuStudio.conf** från en annan Mac här."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "**BambuStudio** klasörünü (veya OrcaSlicer'ınkini) bir kez seç; Bambu Bar kaydedilen erişim kodlarını okur. Başka bir Mac'teki **BambuStudio.conf** dosyasını da buraya bırakabilirsin."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Один раз виберіть папку **BambuStudio** (або папку OrcaSlicer), і Bambu Bar прочитає збережені в ній коди доступу. Сюди також можна перетягнути **BambuStudio.conf** з іншого Mac."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "选择一次其 **BambuStudio** 文件夹（或 OrcaSlicer 的文件夹），Bambu Bar 就会读取其中保存的访问码。也可以将另一台 Mac 上的 **BambuStudio.conf** 拖到这里。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選擇一次其 **BambuStudio** 檔案夾（或 OrcaSlicer 的檔案夾），Bambu Bar 就會讀取其中儲存的存取碼。也可以將另一台 Mac 上的 **BambuStudio.conf** 拖放到這裡。"
+          }
+        }
+      }
+    },
+    "Choose the BambuStudio or OrcaSlicer folder. Bambu Bar only reads the printers' access codes from it.": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vyberte složku BambuStudio nebo OrcaSlicer. Bambu Bar z ní čte jen přístupové kódy tiskáren."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wählen Sie den Ordner BambuStudio oder OrcaSlicer. Bambu Bar liest daraus nur die Zugangscodes der Drucker."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elija la carpeta BambuStudio u OrcaSlicer. Bambu Bar solo lee de ella los códigos de acceso de las impresoras."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisissez le dossier BambuStudio ou OrcaSlicer. Bambu Bar n’y lit que les codes d’accès des imprimantes."
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Válaszd ki a BambuStudio vagy az OrcaSlicer mappát. A Bambu Bar csak a nyomtatók hozzáférési kódjait olvassa ki belőle."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scegli la cartella BambuStudio o OrcaSlicer. Bambu Bar legge solo i codici di accesso delle stampanti."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "BambuStudioまたはOrcaSlicerのフォルダを選択してください。Bambu Barはプリンターのアクセスコードだけを読み込みます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "BambuStudio 또는 OrcaSlicer 폴더를 선택하십시오. Bambu Bar는 프린터의 액세스 코드만 읽습니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kies de map BambuStudio of OrcaSlicer. Bambu Bar leest er alleen de toegangscodes van de printers uit."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wybierz folder BambuStudio lub OrcaSlicer. Bambu Bar odczytuje z niego tylko kody dostępu drukarek."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escolha a pasta BambuStudio ou OrcaSlicer. O Bambu Bar só lê dela os códigos de acesso das impressoras."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выберите папку BambuStudio или OrcaSlicer. Bambu Bar читает из неё только коды доступа принтеров."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Välj mappen BambuStudio eller OrcaSlicer. Bambu Bar läser bara skrivarnas åtkomstkoder därifrån."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "BambuStudio veya OrcaSlicer klasörünü seç. Bambu Bar oradan yalnızca yazıcıların erişim kodlarını okur."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Виберіть папку BambuStudio або OrcaSlicer. Bambu Bar читає з неї лише коди доступу принтерів."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "选择 BambuStudio 或 OrcaSlicer 文件夹。Bambu Bar 只会从中读取打印机的访问码。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選擇 BambuStudio 或 OrcaSlicer 檔案夾。Bambu Bar 只會從中讀取印表機的存取碼。"
           }
         }
       }
@@ -26020,6 +26445,112 @@
           "stringUnit": {
             "state": "translated",
             "value": "掃描首層"
+          }
+        }
+      }
+    },
+    "It makes no other network requests. Updates come from the App Store.": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Žádné další síťové požadavky neodesílá. Aktualizace přicházejí z App Storu."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Andere Netzwerkanfragen gibt es nicht. Updates kommen aus dem App Store."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No realiza ninguna otra solicitud de red. Las actualizaciones llegan desde el App Store."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elle ne fait aucune autre requête réseau. Les mises à jour viennent de l’App Store."
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Más hálózati kérést nem küld. A frissítések az App Store-ból érkeznek."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non effettua altre richieste di rete. Gli aggiornamenti arrivano dall'App Store."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "それ以外のネットワーク通信は行いません。アップデートはApp Storeから配信されます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "그 외의 네트워크 요청은 하지 않습니다. 업데이트는 App Store에서 제공됩니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Er zijn geen andere netwerkverzoeken. Updates komen uit de App Store."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie wykonuje żadnych innych połączeń sieciowych. Uaktualnienia pochodzą z App Store."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ele não faz nenhuma outra solicitação de rede. As atualizações vêm da App Store."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Других сетевых запросов нет. Обновления приходят из App Store."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Den gör inga andra nätverksförfrågningar. Uppdateringar kommer från App Store."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Başka hiçbir ağ isteği yapmaz. Güncellemeler App Store'dan gelir."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Інших мережевих запитів немає. Оновлення надходять з App Store."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "它不会发出其他任何网络请求。更新来自 App Store。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "它不會發出其他任何網路連線。更新項目來自 App Store。"
           }
         }
       }
@@ -53772,6 +54303,112 @@
           "stringUnit": {
             "state": "translated",
             "value": "使用 %@ 中的存取碼"
+          }
+        }
+      }
+    },
+    "Use the codes Bambu Studio saved": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Použijte kódy uložené v Bambu Studiu"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die in Bambu Studio gespeicherten Codes verwenden"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usar los códigos guardados en Bambu Studio"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utiliser les codes enregistrés par Bambu Studio"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A Bambu Studio által mentett kódok használata"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usa i codici salvati da Bambu Studio"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bambu Studioに保存されたコードを使用"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bambu Studio에 저장된 코드 사용"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gebruik de codes die Bambu Studio heeft opgeslagen"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Użyj kodów zapisanych przez Bambu Studio"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usar os códigos salvos pelo Bambu Studio"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Использовать коды, сохранённые в Bambu Studio"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Använd koderna som Bambu Studio har sparat"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bambu Studio'nun kaydettiği kodları kullan"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Використати коди, збережені в Bambu Studio"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用 Bambu Studio 保存的访问码"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用 Bambu Studio 儲存的存取碼"
           }
         }
       }

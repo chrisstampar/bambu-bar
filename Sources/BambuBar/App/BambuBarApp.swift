@@ -26,8 +26,10 @@ struct AppCommands: Commands {
     var body: some Commands {
         CommandGroup(replacing: .appInfo) {
             Button("About Bambu Bar") { MainWindow.show(.about) }
-            Button("Check for Updates…") { UpdateChecker.shared.showUpdate() }
-                .disabled(!UpdateChecker.shared.isRunning)
+            if UpdateChecker.isAvailable {
+                Button("Check for Updates…") { UpdateChecker.shared.showUpdate() }
+                    .disabled(!UpdateChecker.shared.isRunning)
+            }
         }
         CommandGroup(replacing: .appSettings) {
             Button("Settings…") { MainWindow.show(.settings) }

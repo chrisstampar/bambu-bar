@@ -1,12 +1,17 @@
 import AppKit
 import Foundation
 import Observation
-import Sparkle
+#if !APP_STORE
+    import Sparkle
+#endif
 
 /// In-app updates through Sparkle. Once a day it reads the appcast attached to the latest GitHub release (no account,
 /// no identifiers). A newer version opens Sparkle's window with its release notes and Install Update, Skip This
 /// Version or Remind Me Later; installing downloads it, checks its EdDSA signature and Developer ID, swaps the app
 /// and relaunches it.
+///
+/// The App Store build has none of this: the App Store keeps its copies up to date and App Review doesn't allow apps
+/// to update themselves, so its target doesn't even link Sparkle and the update controls hide.
 @MainActor
 @Observable
 final class UpdateChecker: NSObject {
@@ -22,12 +27,6 @@ final class UpdateChecker: NSObject {
 
     nonisolated static let repository = "rolottr/bambu-bar"
 
-    /// `-UpdateFeedURL <url>` on the command line points a build at another appcast, to try an update end to end.
-    /// The update still has to carry this app's EdDSA signature.
-    nonisolated private static var feedOverride: String? {
-        UserDefaults.standard.volatileDomain(forName: UserDefaults.argumentDomain)["UpdateFeedURL"] as? String
-    }
-
     let currentVersion = AppInfo.version
     private(set) var state: State = .idle
     private(set) var lastChecked: Date?
@@ -35,22 +34,14 @@ final class UpdateChecker: NSObject {
     private(set) var offerDismissed = false
     private(set) var skippedVersion: String?
     private(set) var isRunning = false
-    @ObservationIgnored private var controller: SPUStandardUpdaterController!
 
     var checksAutomatically = true {
-        didSet { if isRunning { updater.automaticallyChecksForUpdates = checksAutomatically } }
+        didSet { applySettings() }
     }
 
     var downloadsAutomatically = false {
-        didSet { if isRunning { updater.automaticallyDownloadsUpdates = downloadsAutomatically } }
+        didSet { applySettings() }
     }
-
-    private override init() {
-        super.init()
-        controller = SPUStandardUpdaterController(startingUpdater: false, updaterDelegate: self, userDriverDelegate: self)
-    }
-
-    private var updater: SPUUpdater { controller.updater }
 
     var available: Release? {
         if case .available(let release) = state { return release }
@@ -63,107 +54,144 @@ final class UpdateChecker: NSObject {
         return release
     }
 
-    /// Starts Sparkle's daily schedule. Demo, showcase and probe runs leave it off.
-    func start() {
-        guard !isRunning, !LaunchContext.isDeveloperRun || Self.feedOverride != nil else { return }
-        migrateSettings()
-        controller.startUpdater()
-        isRunning = true
-        syncSettings()
-    }
-
-    /// Looks for a newer version without showing Sparkle's window; the pages show the result.
-    func check() {
-        guard isRunning, state != .checking else { return }
-        if updater.sessionInProgress { return showUpdate() }
-        state = .checking
-        updater.checkForUpdateInformation()
-    }
-
-    /// "Check for Updates…" and the Update buttons: Sparkle's window with the release notes, or "You're up to date".
-    func showUpdate() {
-        guard isRunning else { return }
-        offerDismissed = true
-        controller.checkForUpdates(nil)
-    }
-
     func dismissOffer() { offerDismissed = true }
 
-    /// The checkbox in Sparkle's window can change automatic downloads behind the toggles' back.
-    private func syncSettings() {
-        checksAutomatically = updater.automaticallyChecksForUpdates
-        downloadsAutomatically = updater.automaticallyDownloadsUpdates
-        lastChecked = updater.lastUpdateCheckDate
-    }
+    #if APP_STORE
+        nonisolated static let isAvailable = false
 
-    /// Up to 1.3 the app checked GitHub itself; keep a switched-off automatic check switched off.
-    private func migrateSettings() {
-        let defaults = UserDefaults.standard
-        if let automatic = defaults.object(forKey: "updateChecksAutomatically") as? Bool {
-            updater.automaticallyChecksForUpdates = automatic
+        private override init() {}
+        func start() {}
+        func check() {}
+        func showUpdate() {}
+        private func applySettings() {}
+    #else
+        nonisolated static let isAvailable = true
+
+        /// `-UpdateFeedURL <url>` on the command line points a build at another appcast, to try an update end to
+        /// end. The update still has to carry this app's EdDSA signature.
+        nonisolated private static var feedOverride: String? {
+            UserDefaults.standard.volatileDomain(forName: UserDefaults.argumentDomain)["UpdateFeedURL"] as? String
         }
-        for key in ["updateChecksAutomatically", "updateLastChecked", "updateSkippedVersion"] {
-            defaults.removeObject(forKey: key)
+
+        @ObservationIgnored private var controller: SPUStandardUpdaterController!
+
+        private override init() {
+            super.init()
+            controller = SPUStandardUpdaterController(startingUpdater: false, updaterDelegate: self, userDriverDelegate: self)
         }
-    }
 
-    private func found(_ item: SUAppcastItem) {
-        let release = Release(version: item.displayVersionString)
-        if available != release { offerDismissed = false }
-        state = .available(release)
-    }
-}
+        private var updater: SPUUpdater { controller.updater }
 
-// Sparkle calls its delegates on the main thread.
-extension UpdateChecker: SPUUpdaterDelegate {
-    nonisolated func feedURLString(for updater: SPUUpdater) -> String? { Self.feedOverride }
-
-    nonisolated func updater(_ updater: SPUUpdater, didFindValidUpdate item: SUAppcastItem) {
-        MainActor.assumeIsolated { found(item) }
-    }
-
-    nonisolated func updaterDidNotFindUpdate(_ updater: SPUUpdater) {
-        MainActor.assumeIsolated { state = .upToDate }
-    }
-
-    nonisolated func updater(_ updater: SPUUpdater, userDidMake choice: SPUUserUpdateChoice,
-                             forUpdate updateItem: SUAppcastItem, state: SPUUserUpdateState) {
-        let version = updateItem.displayVersionString
-        MainActor.assumeIsolated {
-            switch choice {
-            case .skip: skippedVersion = version
-            case .dismiss: offerDismissed = true
-            case .install: break
-            @unknown default: break
-            }
-        }
-    }
-
-    nonisolated func updater(_ updater: SPUUpdater, didFinishUpdateCycleFor updateCheck: SPUUpdateCheck, error: (any Error)?) {
-        let code = (error as NSError?).flatMap { $0.domain == SUSparkleErrorDomain ? $0.code : nil }
-        let failed = error != nil && code != Int(SUError.noUpdateError.rawValue)
-            && code != Int(SUError.installationCanceledError.rawValue)
-        MainActor.assumeIsolated {
-            if state == .checking {
-                state = failed ? .failed(String(localized: "Couldn’t reach GitHub. Check your connection and try again.")) : .upToDate
-            }
+        /// Starts Sparkle's daily schedule. Demo, showcase and probe runs leave it off, and so do builds Xcode runs
+        /// directly: only build.sh adds Sparkle's settings (Resources/Sparkle-Info.plist).
+        func start() {
+            guard !isRunning, Bundle.main.object(forInfoDictionaryKey: "SUPublicEDKey") != nil,
+                  !LaunchContext.isDeveloperRun || Self.feedOverride != nil else { return }
+            migrateSettings()
+            controller.startUpdater()
+            isRunning = true
             syncSettings()
         }
-    }
+
+        /// Looks for a newer version without showing Sparkle's window; the pages show the result.
+        func check() {
+            guard isRunning, state != .checking else { return }
+            if updater.sessionInProgress { return showUpdate() }
+            state = .checking
+            updater.checkForUpdateInformation()
+        }
+
+        /// "Check for Updates…" and the Update buttons: Sparkle's window with the release notes, or "You're up to date".
+        func showUpdate() {
+            guard isRunning else { return }
+            offerDismissed = true
+            controller.checkForUpdates(nil)
+        }
+
+        private func applySettings() {
+            guard isRunning else { return }
+            updater.automaticallyChecksForUpdates = checksAutomatically
+            updater.automaticallyDownloadsUpdates = downloadsAutomatically
+        }
+
+        /// The checkbox in Sparkle's window can change automatic downloads behind the toggles' back.
+        private func syncSettings() {
+            checksAutomatically = updater.automaticallyChecksForUpdates
+            downloadsAutomatically = updater.automaticallyDownloadsUpdates
+            lastChecked = updater.lastUpdateCheckDate
+        }
+
+        /// Up to 1.3 the app checked GitHub itself; keep a switched-off automatic check switched off.
+        private func migrateSettings() {
+            let defaults = UserDefaults.standard
+            if let automatic = defaults.object(forKey: "updateChecksAutomatically") as? Bool {
+                updater.automaticallyChecksForUpdates = automatic
+            }
+            for key in ["updateChecksAutomatically", "updateLastChecked", "updateSkippedVersion"] {
+                defaults.removeObject(forKey: key)
+            }
+        }
+
+        private func found(_ item: SUAppcastItem) {
+            let release = Release(version: item.displayVersionString)
+            if available != release { offerDismissed = false }
+            state = .available(release)
+        }
+    #endif
 }
 
-extension UpdateChecker: SPUStandardUserDriverDelegate {
-    /// A menu bar app has no window to wait for: Sparkle shows its window right away (in front shortly after launch or
-    /// while the Mac sat idle, otherwise behind other apps) and the menu bar panel offers the update too.
-    nonisolated var supportsGentleScheduledUpdateReminders: Bool { true }
+#if !APP_STORE
+    // Sparkle calls its delegates on the main thread.
+    extension UpdateChecker: SPUUpdaterDelegate {
+        nonisolated func feedURLString(for updater: SPUUpdater) -> String? { Self.feedOverride }
 
-    nonisolated func standardUserDriverShouldHandleShowingScheduledUpdate(_ update: SUAppcastItem,
-                                                                          andInImmediateFocus immediateFocus: Bool) -> Bool {
-        true
+        nonisolated func updater(_ updater: SPUUpdater, didFindValidUpdate item: SUAppcastItem) {
+            MainActor.assumeIsolated { found(item) }
+        }
+
+        nonisolated func updaterDidNotFindUpdate(_ updater: SPUUpdater) {
+            MainActor.assumeIsolated { state = .upToDate }
+        }
+
+        nonisolated func updater(_ updater: SPUUpdater, userDidMake choice: SPUUserUpdateChoice,
+                                 forUpdate updateItem: SUAppcastItem, state: SPUUserUpdateState) {
+            let version = updateItem.displayVersionString
+            MainActor.assumeIsolated {
+                switch choice {
+                case .skip: skippedVersion = version
+                case .dismiss: offerDismissed = true
+                case .install: break
+                @unknown default: break
+                }
+            }
+        }
+
+        nonisolated func updater(_ updater: SPUUpdater, didFinishUpdateCycleFor updateCheck: SPUUpdateCheck, error: (any Error)?) {
+            let code = (error as NSError?).flatMap { $0.domain == SUSparkleErrorDomain ? $0.code : nil }
+            let failed = error != nil && code != Int(SUError.noUpdateError.rawValue)
+                && code != Int(SUError.installationCanceledError.rawValue)
+            MainActor.assumeIsolated {
+                if state == .checking {
+                    state = failed ? .failed(String(localized: "Couldn’t reach GitHub. Check your connection and try again.")) : .upToDate
+                }
+                syncSettings()
+            }
+        }
     }
 
-    nonisolated func standardUserDriverWillHandleShowingUpdate(_ handleShowingUpdate: Bool, forUpdate update: SUAppcastItem,
-                                                               state: SPUUserUpdateState) {
-        MainActor.assumeIsolated { found(update) }
+    extension UpdateChecker: SPUStandardUserDriverDelegate {
+        /// A menu bar app has no window to wait for: Sparkle shows its window right away (in front shortly after
+        /// launch or while the Mac sat idle, otherwise behind other apps) and the menu bar panel offers the update too.
+        nonisolated var supportsGentleScheduledUpdateReminders: Bool { true }
+
+        nonisolated func standardUserDriverShouldHandleShowingScheduledUpdate(_ update: SUAppcastItem,
+                                                                              andInImmediateFocus immediateFocus: Bool) -> Bool {
+            true
+        }
+
+        nonisolated func standardUserDriverWillHandleShowingUpdate(_ handleShowingUpdate: Bool, forUpdate update: SUAppcastItem,
+                                                                   state: SPUUserUpdateState) {
+            MainActor.assumeIsolated { found(update) }
+        }
     }
-}
+#endif

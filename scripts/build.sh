@@ -24,15 +24,7 @@ mkdir -p "$BUILD"
 if [[ -z "${DEVELOPER_DIR:-}" ]] && ! xcodebuild -version >/dev/null 2>&1; then
   export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
 fi
-command -v xcodegen >/dev/null || { echo "xcodegen is required: brew install xcodegen" >&2; exit 2; }
-
-echo "==> App icon"
-rm -rf "$BUILD/AppIcon.iconset"
-swift "$ROOT/scripts/generate-icon.swift" "$BUILD/AppIcon.iconset" >/dev/null
-iconutil -c icns "$BUILD/AppIcon.iconset" -o "$ROOT/Resources/AppIcon.icns"
-
-echo "==> Generating Xcode project"
-xcodegen generate --quiet --spec "$ROOT/project.yml" --project "$ROOT"
+"$ROOT/scripts/generate.sh"
 
 echo "==> xcodebuild ($CONFIG)"
 xcodebuild -project BambuBar.xcodeproj -scheme BambuBar -configuration "$CONFIG" \
@@ -55,6 +47,9 @@ mkdir -p "$ENT"
 for f in BambuBar BambuBarWidget; do
   sed "s/\$(APP_GROUP)/$APP_GROUP/g" "$ROOT/Resources/Signing/$f.entitlements" > "$ENT/$f.entitlements"
 done
+# Sparkle's feed and public key go into this build only: the App Store build doesn't update itself.
+/usr/libexec/PlistBuddy -c "Merge $ROOT/Resources/Sparkle-Info.plist" "$APP/Contents/Info.plist" >/dev/null
+
 WIDGET="$APP/Contents/PlugIns/BambuBarWidget.appex"
 SPARKLE="$APP/Contents/Frameworks/Sparkle.framework"
 # The app isn't sandboxed, so Sparkle installs updates itself and its XPC services aren't needed.

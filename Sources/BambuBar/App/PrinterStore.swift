@@ -36,6 +36,8 @@ final class PrinterStore {
     /// file imported from another Mac this session).
     private(set) var slicerPrinters: [SlicerPrinter] = []
     private var importedPrinters: [SlicerPrinter] = []
+    /// Sandboxed (App Store) and not yet given the slicer's folder: setup asks for it.
+    private(set) var slicerAccessNeeded = SlicerImport.needsAccess
     /// A short-lived message after a command ("The printer refused…").
     private(set) var toast: Toast?
     private(set) var isDemo = false
@@ -377,6 +379,7 @@ final class PrinterStore {
                 var all = self.importedPrinters
                 for printer in scanned where !all.contains(where: { $0.serial == printer.serial }) { all.append(printer) }
                 if all != self.slicerPrinters { self.slicerPrinters = all }
+                self.slicerAccessNeeded = SlicerImport.needsAccess
             }
         }
     }
@@ -386,6 +389,10 @@ final class PrinterStore {
     @discardableResult
     func importSlicerSettings(from url: URL) -> Int {
         let found = SlicerImport.read(picked: url)
+        if !found.isEmpty && !isDemo {
+            SlicerImport.rememberAccess(to: url)
+            slicerAccessNeeded = SlicerImport.needsAccess
+        }
         for printer in found {
             importedPrinters.removeAll { $0.serial == printer.serial }
             importedPrinters.insert(printer, at: 0)
