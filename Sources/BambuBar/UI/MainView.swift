@@ -31,7 +31,6 @@ struct MainView: View {
             }
             .scrollContentBackground(.hidden)
             .background(PageBackground(status: store.status))
-            .overlay(alignment: .bottomTrailing) { UpdateOffer() }
             .navigationTitle(navigation.section.title)
             .toolbar(removing: .title)
         }

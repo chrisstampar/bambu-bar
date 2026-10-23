@@ -40,7 +40,7 @@ It talks to the printer directly over your network, the same way Bambu Studio do
 | **Easy setup** | Finds printers on your network and reads the access codes from Bambu Studio or OrcaSlicer, on this Mac or from a settings file copied from another one. When the slicer knows several printers, **Add All** sets them all up at once. |
 | **Mac integration** | Open at Login, no Dock icon while it lives in the menu bar (the icon and menus appear while its window is open), keyboard shortcuts, and it follows the printer when DHCP gives it a new address. |
 | **17 languages** | English, Čeština, Deutsch, Español, Français, Italiano, Magyar, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, Русский, Українська, 日本語, 한국어, 简体中文 and 繁體中文. It follows your Mac's language, or the one picked in **Settings → Language**. Printer terms follow Bambu Studio's translations, and printer errors use Bambu Lab's own texts where Bambu publishes them (all but Czech, Turkish and Ukrainian, which show them in English, and Traditional Chinese, which shows the Simplified ones). |
-| **Updates** | Checks GitHub once a day for a new release (turn it off in Settings) and offers the download; **Check for Updates…** in the app menu asks right away. It never installs anything by itself. |
+| **Updates** | Checks GitHub once a day for a new release (turn it off in Settings) and shows what's new with **Install Update**, **Skip This Version** or **Remind Me Later**; installing downloads it, verifies its signature and restarts the app. **Check for Updates…** in the app menu asks right away, and Settings can install updates automatically. |
 
 ## Getting started
 
@@ -101,7 +101,7 @@ Printers announce themselves on UDP port 2021; that's how Bambu Bar lists them d
 
 ## Privacy and local storage
 
-No account, no analytics, no cloud. Bambu Bar talks to your printers on your local network. Its only other request is the optional daily update check, which reads this project's latest release from the GitHub API and sends nothing about you or your printers.
+No account, no analytics, no cloud. Bambu Bar talks to your printers on your local network. Its only other request is the optional daily update check, which reads the update feed attached to this project's latest GitHub release and sends nothing about you or your printers. Updates install only when they carry the developer's EdDSA signature.
 
 - **Printers (address, serial, name) and preferences:** local macOS user defaults.
 - **Access codes:** your login keychain.
@@ -136,6 +136,16 @@ To verify a download, run this next to both files:
 shasum -a 256 -c Bambu-Bar-1.0.0-macos.zip.sha256
 ```
 
+### Publish an update
+
+In-app updates use [Sparkle](https://sparkle-project.org). After `gh release create v<version>` with the notarized zip, run:
+
+```sh
+UPLOAD=1 ./scripts/appcast.sh
+```
+
+It signs the zip with the EdDSA key in the login keychain (`SUPublicEDKey` in Info.plist is its public half), turns the release's text into the release notes shown in the update window, and attaches `appcast.xml` to the release. The app reads `releases/latest/download/appcast.xml`, so the newest release's feed is the one that counts. Back the key up with Sparkle's `generate_keys -x <file>` (in `build/DerivedData.noindex/SourcePackages/artifacts/sparkle/Sparkle/bin`): without it, installed copies can't be updated.
+
 The [GitHub Actions workflow](.github/workflows/build.yml) builds and uploads an ad-hoc signed ZIP on pushes and pull requests. It does not sign, notarize or publish a release.
 
 ### Developing without a printer
@@ -165,7 +175,7 @@ The **Printer** menu also switches printers, adds one, and pauses, resumes or st
 
 Created by [rolottr](https://github.com/rolottr). Released under the [MIT License](LICENSE).
 
-Protocol details, a real P2S report and Bambu Lab's HMS error texts in 14 languages come from [ha-bambulab](https://github.com/greghesp/ha-bambulab) (MIT), which also provided Bambu Lab's certificate authorities that ship with the app. [Bambuddy](https://github.com/maziggy/bambuddy) and [bambu-cli](https://github.com/tobiasbischoff/bambu-cli) helped map the newer printers, and the access-code import follows [Bambu Studio](https://github.com/bambulab/BambuStudio)'s settings format. Each model's capabilities and build volume follow the printer profiles in Bambu Studio's `resources/printers` and `resources/profiles/BBL/machine`, and filament makers and colour names come from its `resources/profiles/BBL/filament`.
+Protocol details, a real P2S report and Bambu Lab's HMS error texts in 14 languages come from [ha-bambulab](https://github.com/greghesp/ha-bambulab) (MIT), which also provided Bambu Lab's certificate authorities that ship with the app. [Bambuddy](https://github.com/maziggy/bambuddy) and [bambu-cli](https://github.com/tobiasbischoff/bambu-cli) helped map the newer printers, and the access-code import follows [Bambu Studio](https://github.com/bambulab/BambuStudio)'s settings format. Each model's capabilities and build volume follow the printer profiles in Bambu Studio's `resources/printers` and `resources/profiles/BBL/machine`, and filament makers and colour names come from its `resources/profiles/BBL/filament`. In-app updates use [Sparkle](https://sparkle-project.org) (MIT).
 
 The printer models were built for this project in Blender from published outer dimensions; they are visual approximations, not manufacturer CAD, and carry no logos. The generator is in `artwork/`.
 

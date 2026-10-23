@@ -272,7 +272,7 @@ struct SettingsPage: View {
     }
 }
 
-/// Automatic update checks, the result of the last one and a manual check.
+/// Automatic update checks and downloads, the result of the last check and a manual one.
 private struct UpdatesGroup: View {
     @State private var updates = UpdateChecker.shared
 
@@ -286,6 +286,12 @@ private struct UpdatesGroup: View {
                     Spacer()
                     Toggle("", isOn: $updates.checksAutomatically).toggleStyle(.switch).labelsHidden().tint(Palette.accentDeep)
                 }
+                HStack {
+                    Text("Download and install updates automatically").font(.system(size: 12.5))
+                    Spacer()
+                    Toggle("", isOn: $updates.downloadsAutomatically).toggleStyle(.switch).labelsHidden().tint(Palette.accentDeep)
+                }
+                .disabled(!updates.checksAutomatically)
                 Divider()
                 HStack(spacing: 10) {
                     Image(systemName: symbol).foregroundStyle(tint).font(.system(size: 13, weight: .semibold))
@@ -294,16 +300,17 @@ private struct UpdatesGroup: View {
                         Text(detail).font(.system(size: 11.5)).foregroundStyle(.secondary)
                     }
                     Spacer()
-                    if let release = updates.available {
-                        Button("Download") { updates.download(release) }
+                    if updates.available != nil {
+                        Button("Update…") { updates.showUpdate() }
                             .buttonStyle(.borderedProminent).tint(Palette.accentDeep)
                     } else if updates.state == .checking {
                         ProgressView().controlSize(.small)
                     } else {
-                        Button("Check Now") { Task { await updates.check() } }
+                        Button("Check Now") { updates.check() }
+                            .disabled(!updates.isRunning)
                     }
                 }
-                Text("Bambu Bar reads the latest release of rolottr/bambu-bar on GitHub once a day and never installs anything by itself.")
+                Text("Bambu Bar reads the latest release of rolottr/bambu-bar on GitHub once a day. Updates show what’s new and install in place, once their signature is verified.")
                     .font(.system(size: 11.5)).foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
             }
@@ -340,52 +347,9 @@ private struct UpdatesGroup: View {
 
     private var detail: String {
         if case .failed(let message) = updates.state { return message }
-        if case .available = updates.state { return String(localized: "You have \(updates.currentVersion). Replace the app in Applications with the new download.") }
+        if case .available = updates.state { return String(localized: "You have \(updates.currentVersion). Bambu Bar installs the update and restarts.") }
         guard let last = updates.lastChecked else { return String(localized: "Not checked yet") }
         return String(localized: "Version \(updates.currentVersion) · last checked \(last.formatted(.relative(presentation: .named)))")
-    }
-}
-
-/// A newer release, offered once in the main window's corner (Later hides it until the next launch).
-struct UpdateOffer: View {
-    var updates = UpdateChecker.shared
-
-    var body: some View {
-        ZStack {
-            if let release = updates.offered {
-                VStack(alignment: .leading, spacing: 12) {
-                    HStack(alignment: .top, spacing: 12) {
-                        Image(systemName: "arrow.down.circle.fill")
-                            .font(.system(size: 26))
-                            .foregroundStyle(Palette.accent)
-                        VStack(alignment: .leading, spacing: 3) {
-                            Text("Bambu Bar \(release.version) is available").font(.system(size: 13.5, weight: .semibold))
-                            Text("You have \(updates.currentVersion). Download it from GitHub, then replace the app in your Applications folder.")
-                                .font(.system(size: 12)).foregroundStyle(.secondary)
-                                .fixedSize(horizontal: false, vertical: true)
-                        }
-                    }
-                    HStack(spacing: 8) {
-                        Spacer()
-                        Button("Skip This Version") { updates.skip(release) }
-                        Button("Later") { updates.dismissOffer() }
-                        Button("Download") {
-                            updates.download(release)
-                            updates.dismissOffer()
-                        }
-                        .buttonStyle(.borderedProminent).tint(Palette.accentDeep)
-                    }
-                }
-                .padding(16)
-                .frame(width: 370)
-                .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-                .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).strokeBorder(.white.opacity(0.1)))
-                .shadow(color: .black.opacity(0.3), radius: 20, y: 8)
-                .transition(.move(edge: .trailing).combined(with: .opacity))
-            }
-        }
-        .animation(.spring(response: 0.45, dampingFraction: 0.85), value: updates.offered)
-        .padding(22)
     }
 }
 

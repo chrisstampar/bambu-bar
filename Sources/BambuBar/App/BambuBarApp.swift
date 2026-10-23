@@ -26,8 +26,8 @@ struct AppCommands: Commands {
     var body: some Commands {
         CommandGroup(replacing: .appInfo) {
             Button("About Bambu Bar") { MainWindow.show(.about) }
-            Button("Check for Updates…") { Task { await UpdateChecker.shared.checkAndReport() } }
-                .disabled(UpdateChecker.shared.state == .checking)
+            Button("Check for Updates…") { UpdateChecker.shared.showUpdate() }
+                .disabled(!UpdateChecker.shared.isRunning)
         }
         CommandGroup(replacing: .appSettings) {
             Button("Settings…") { MainWindow.show(.settings) }
@@ -81,8 +81,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             Probe.run(host: probe.host, serial: probe.serial, code: probe.code, seconds: probe.seconds)
             return
         }
+        SingleInstance.handOverIfRunning(background: background)
+        SingleInstance.listen()
         PrinterStore.shared.start()
-        UpdateChecker.shared.startAutomaticChecks()
+        UpdateChecker.shared.start()
         WidgetUpdate.refreshIfUpdated()
         observeAppWindows()
         if let dir = ReadmeFrames.directory {

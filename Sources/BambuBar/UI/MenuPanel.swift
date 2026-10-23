@@ -654,11 +654,8 @@ struct UpdateRow: View {
             Spacer(minLength: 0)
             Button("Later") { UpdateChecker.shared.dismissOffer() }
                 .buttonStyle(.borderless).controlSize(.small).foregroundStyle(.secondary)
-            Button("Download") {
-                UpdateChecker.shared.download(release)
-                UpdateChecker.shared.dismissOffer()
-            }
-            .controlSize(.small)
+            Button("Update…") { UpdateChecker.shared.showUpdate() }
+                .controlSize(.small)
         }
         .panel(radius: 12, padding: 10)
     }

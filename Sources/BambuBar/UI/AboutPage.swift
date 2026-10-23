@@ -30,12 +30,12 @@ struct AboutPage: View {
                     Text("Your Bambu Lab printer, one click away in the menu bar.")
                         .font(.system(size: 13)).foregroundStyle(.tertiary)
                     if let release = updates.available {
-                        Button { updates.download(release) } label: {
+                        Button { updates.showUpdate() } label: {
                             Label("Get Bambu Bar \(release.version)", systemImage: "arrow.down.circle.fill")
                         }
                         .buttonStyle(.borderedProminent)
                         .tint(Palette.accentDeep)
-                        .help("Opens the \(release.version) release on GitHub")
+                        .help("Shows what’s new in \(release.version) and installs it")
                         .padding(.top, 6)
                     }
                 }
@@ -50,12 +50,12 @@ struct AboutPage: View {
                     Text("Updates").font(.system(size: 12)).foregroundStyle(.secondary)
                     Spacer()
                     Text(updateLine).font(.system(size: 12)).foregroundStyle(updates.available == nil ? .secondary : Palette.accent)
-                    if let release = updates.available {
-                        Button("Download") { updates.download(release) }.controlSize(.small)
+                    if updates.available != nil {
+                        Button("Update…") { updates.showUpdate() }.controlSize(.small)
                     } else if updates.state == .checking {
                         ProgressView().controlSize(.small)
                     } else {
-                        Button("Check Now") { Task { await updates.check() } }.controlSize(.small)
+                        Button("Check Now") { updates.check() }.controlSize(.small)
                     }
                 }
                 HStack {
@@ -73,7 +73,7 @@ struct AboutPage: View {
 
             section("Privacy") {
                 paragraph("No account, no cloud, no analytics. Bambu Bar talks to your printer on your network, and the access code is stored in your keychain.")
-                paragraph("Its only other request is the optional daily update check, which reads this project's latest release on GitHub and sends nothing about you or your printers. Turn it off in Settings → Updates.")
+                paragraph("Its only other request is the optional daily update check, which reads this project's latest release on GitHub and sends nothing about you or your printers. Updates install only when they carry the developer's signature. Turn the check off in Settings → Updates.")
             }
 
             section("Links") {
