@@ -89,6 +89,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         UpdateChecker.shared.start()
         WidgetUpdate.refreshIfUpdated()
         observeAppWindows()
+        if let dir = StoreMedia.directory {
+            StoreMedia.run(into: dir)
+            return
+        }
         if let dir = ReadmeFrames.directory {
             ReadmeFrames.run(into: dir)
             return
