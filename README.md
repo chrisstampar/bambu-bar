@@ -155,7 +155,7 @@ The [GitHub Actions workflow](.github/workflows/build.yml) builds and uploads an
 ```sh
 ./scripts/appstore.sh             # archive + export build/AppStore/Export/Bambu Bar.pkg
 UPLOAD=1 ./scripts/appstore.sh    # archive + upload to App Store Connect
-./scripts/appstore-screenshots.sh # 1440×900 store screenshots from the demo printers
+./scripts/appstore-media.sh       # 2880×1800 screenshots + 1080p app preview, drawn from the demo printers
 ```
 
 The **AppStore** configuration (scheme **BambuBar App Store**, also for Product → Archive in Xcode after `scripts/generate.sh`) builds a sandboxed app with Xcode's automatic signing, leaves out the GitHub update checker and asks for Bambu Studio's folder instead of reading it directly.
