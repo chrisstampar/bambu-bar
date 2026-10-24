@@ -52,14 +52,14 @@ enum StoreMedia {
         shot("1-menu-bar", at: 2.2, MenuBarShot(store: store, clock: clock(2.2)))
         shot("2-all-printers", at: 2.2, WindowShot(
             store: store, section: .fleet, title: "Every printer. One glance.",
-            subtitle: "Run a whole print farm from your Mac. The printer that needs you is always on top.", zoom: 1.3))
+            subtitle: "Run a whole print farm from your Mac. The printer that needs you is always on top."))
         shot("3-widgets", at: 2.2, WidgetsShot(printer: printer, now: clock(2.2), progress: 2.1))
         shot("4-printer", at: 2.2, WindowShot(
             store: store, section: .overview, title: "The whole print, live.",
             subtitle: "A 3D model that prints along, layers, temperatures, fans, and pause, stop, speed and light."))
         shot("5-filament", at: 2.2, WindowShot(
             store: store, section: .filament, title: "Know every spool.",
-            subtitle: "AMS trays with colour, material, grams left and humidity, named as Bambu Studio names them.", zoom: 1.3))
+            subtitle: "AMS trays with colour, material, grams left and humidity, named as Bambu Studio names them."))
         shot("6-alerts", at: 6, pauseAt: 5, AlertsShot(printer: printer, now: clock(6)))
         shot("7-private", at: 2.2, PrivacyShot())
     }
@@ -92,6 +92,13 @@ enum StoreMedia {
         try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
         let printer = ShowcasePrinter(store)
         let pauseAt = 4.6, allAt = 7.0
+        // Zoom the menu bar scene so the whole panel stays in frame, in its tallest state.
+        var panel: CGFloat = 0
+        for (t, all) in [(0.0, false), (pauseAt + 0.5, false), (allAt, true)] {
+            session.showDemoStatus(ReadmeFrames.status(at: t, pauseAt: pauseAt))
+            panel = max(panel, panelHeight(store, showsAll: all))
+        }
+        let menuZoom = min(1.25, previewSize.height / (MenuBarScene.panelTop + panel + 20))
         let tour: [(AppSection, Double, String)] = [
             (.overview, 4.0, "The whole print, live in 3D."),
             (.filament, 3.4, "Every spool in your AMS."),
@@ -102,7 +109,8 @@ enum StoreMedia {
                 session.showDemoStatus(ReadmeFrames.status(at: t, pauseAt: pauseAt))
                 let caption = t < pauseAt ? "Your print, live in the menu bar." : t < allAt ? "It tells you when it needs you." : "Every printer, one click away."
                 let since = t < pauseAt ? t : t < allAt ? t - pauseAt : t - allAt
-                return AnyView(PreviewMenuBar(store: store, clock: clock(t), showsAll: t >= allAt, caption: caption, captionAge: since))
+                return AnyView(PreviewMenuBar(store: store, clock: clock(t), showsAll: t >= allAt, caption: caption, captionAge: since,
+                                              zoom: menuZoom))
             },
             Segment(length: tour.reduce(0) { $0 + $1.1 }) { t in
                 session.showDemoStatus(ReadmeFrames.status(at: 2 + t * 0.6, pauseAt: nil))
@@ -137,6 +145,12 @@ enum StoreMedia {
                 try? ReadmeFrames.render(view, size: previewSize, scale: 2)?.representation(using: .png, properties: [:])?.write(to: url)
             }
         }
+    }
+
+    /// The menu bar panel's height with the demo status it shows now.
+    private static func panelHeight(_ store: PrinterStore, showsAll: Bool) -> CGFloat {
+        NSHostingView(rootView: MenuPanel(showsAllOverride: showsAll).environment(store).environment(\.plainPanel, true)
+            .environment(\.colorScheme, .dark)).fittingSize.height
     }
 }
 
@@ -308,13 +322,13 @@ private struct MenuBarShot: View {
     }
 }
 
-/// A caption across the top and the window under it, running off the bottom edge.
+/// A caption across the top and the whole window under it.
 private struct WindowShot: View {
     let store: PrinterStore
     let section: AppSection
     let title: String
     let subtitle: String
-    var zoom: CGFloat = 1.18
+    private let top: CGFloat = 214
 
     var body: some View {
         ZStack(alignment: .top) {
@@ -322,8 +336,8 @@ private struct WindowShot: View {
             Scrim(from: .top, to: .center, strength: 0.35)
             Caption(title: title, subtitle: subtitle).padding(.top, 62)
             FramedWindow(store: store, section: section, next: section)
-                .scaleEffect(zoom, anchor: .top)
-                .padding(.top, 226)
+                .scaleEffect((900 - top - 36) / FramedWindow.standardSize.height, anchor: .top)
+                .padding(.top, top)
         }
         .frame(width: 1440, height: 900, alignment: .top)
         .clipped()
@@ -457,7 +471,7 @@ private struct PreviewMenuBar: View {
     let showsAll: Bool
     let caption: String
     let captionAge: Double
-    private let zoom: CGFloat = 1.25
+    let zoom: CGFloat
 
     var body: some View {
         ZStack(alignment: .topLeading) {
@@ -485,10 +499,11 @@ private struct PreviewWindow: View {
     var body: some View {
         ZStack(alignment: .top) {
             Scrim(from: .top, to: .center, strength: 0.3)
-            PreviewCaption(text: caption, age: captionAge).padding(.top, 26)
+            PreviewCaption(text: caption, age: captionAge).padding(.top, 24)
+            // The whole window, under the caption.
             FramedWindow(store: store, section: section, next: next, blend: blend)
-                .scaleEffect(0.86, anchor: .top)
-                .padding(.top, 90)
+                .scaleEffect((540 - 82 - 16) / FramedWindow.standardSize.height, anchor: .top)
+                .padding(.top, 82)
         }
         .frame(width: 960, height: 540, alignment: .top)
         .clipped()

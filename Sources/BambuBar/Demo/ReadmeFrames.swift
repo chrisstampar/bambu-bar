@@ -88,7 +88,7 @@ enum ReadmeFrames {
     /// A tour of the window: the printer page with its 3D model, the filament page, every printer, then back to
     /// the start so the loop is seamless.
     private static func renderWindow(into dir: URL, store: PrinterStore, session: PrinterSession) {
-        let windowSize = CGSize(width: 1000, height: 660)
+        let windowSize = FramedWindow.standardSize
         let size = CGSize(width: windowSize.width + 56, height: windowSize.height + 56)
         var stops: [(AppSection, Double)] = [(.overview, 5.2), (.filament, 3.8)]
         if store.hasMultiplePrinters { stops.append((.fleet, 3.8)) }
@@ -210,8 +210,10 @@ struct MenuBarScene: View {
     var showsAll = false
 
     private let barHeight: CGFloat = 26
+    /// The panel's top edge, just under the menu bar.
+    static let panelTop: CGFloat = 32
     /// Under the status item: everything right of it in the menu bar is 404 points wide.
-    private var panelOrigin: CGPoint { CGPoint(x: size.width - 404, y: 32) }
+    private var panelOrigin: CGPoint { CGPoint(x: size.width - 404, y: Self.panelTop) }
 
     var body: some View {
         ZStack(alignment: .topLeading) {
@@ -394,7 +396,8 @@ struct FramedWindow: View {
     let section: AppSection
     var next: AppSection
     var blend: Double = 0
-    var size = CGSize(width: 1000, height: 660)
+    static let standardSize = CGSize(width: 1000, height: 660)
+    var size = standardSize
 
     var body: some View {
         ReadmeWindow(store: store, section: section, next: next, blend: blend)
