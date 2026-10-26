@@ -6,16 +6,6 @@ struct AboutPage: View {
     @State private var copied = false
     private var updates: UpdateChecker { .shared }
 
-    private var updateLine: String {
-        switch updates.state {
-        case .available(let release): return String(localized: "\(release.version) is available", comment: "A version number")
-        case .upToDate: return String(localized: "Up to date")
-        case .checking: return String(localized: "Checking…")
-        case .failed: return String(localized: "Couldn’t check")
-        case .idle: return updates.lastChecked == nil ? String(localized: "Not checked yet") : String(localized: "Up to date")
-        }
-    }
-
     var body: some View {
         VStack(alignment: .leading, spacing: 22) {
             HStack(spacing: 20) {
@@ -26,6 +16,7 @@ struct AboutPage: View {
                     .accessibilityHidden(true)
                 VStack(alignment: .leading, spacing: 4) {
                     Text("Bambu Bar").font(.system(size: 30, weight: .bold))
+                    Text("NINA LABS, LLC").font(.subheadline).foregroundStyle(.secondary)
                     Text("Version \(AppInfo.version) (\(AppInfo.build))").foregroundStyle(.secondary)
                     Text("Your Bambu Lab printer, one click away in the menu bar.")
                         .font(.system(size: 13)).foregroundStyle(.tertiary)
@@ -42,31 +33,44 @@ struct AboutPage: View {
             }
             .padding(.bottom, 4)
 
-            section("This copy") {
-                DetailRow(title: "Version", value: "\(AppInfo.version) (\(AppInfo.build))")
-                DetailRow(title: "System", value: "\(AppInfo.system) · \(AppInfo.architecture)")
-                DetailRow(title: "License", value: String(localized: "MIT, free and open source"))
-                if UpdateChecker.isAvailable {
+            HStack(alignment: .top, spacing: 20) {
+                section("This copy") {
+                    DetailRow(title: "Version", value: "\(AppInfo.version) (\(AppInfo.build))")
+                    DetailRow(title: "System", value: "\(AppInfo.system) · \(AppInfo.architecture)")
+                    #if APP_STORE
+                    DetailRow(title: "License", value: String(localized: "Mac App Store"))
+                    #else
+                    if LicenseStore.shared.hasAccess {
+                        Label("Hero Supporter · Thanks for supporting Bambu Bar", systemImage: "star.circle.fill")
+                            .font(.callout.weight(.semibold)).foregroundStyle(Palette.accent)
+                    } else {
+                        DetailRow(title: "License", value: String(localized: "Free · Community edition"))
+                    }
+                    #endif
                     HStack {
-                        Text("Updates").font(.system(size: 12)).foregroundStyle(.secondary)
+                        Text("For bug reports").font(.system(size: 12)).foregroundStyle(.secondary)
                         Spacer()
-                        Text(updateLine).font(.system(size: 12)).foregroundStyle(updates.available == nil ? .secondary : Palette.accent)
-                        if updates.available != nil {
-                            Button("Update…") { updates.showUpdate() }.controlSize(.small)
-                        } else if updates.state == .checking {
-                            ProgressView().controlSize(.small)
-                        } else {
-                            Button("Check Now") { updates.check() }.controlSize(.small)
-                        }
+                        Button(copied ? "Copied" : "Copy Version Info", action: copy)
+                            .controlSize(.small)
                     }
                 }
-                HStack {
-                    Text("For bug reports").font(.system(size: 12)).foregroundStyle(.secondary)
-                    Spacer()
-                    Button(copied ? "Copied" : "Copy Version Info", action: copy)
-                        .controlSize(.small)
+
+                section("Links") {
+                    link("bambubar.app", symbol: "globe", AppInfo.websiteURL)
+                    // The App Store shows what's new itself, and the release page offers the app outside the store.
+                    if UpdateChecker.isAvailable {
+                        link("Release Notes", symbol: "doc.text", URL(string: "https://bambubar.app/changelog")!)
+                    }
+                    #if !APP_STORE
+                    link("Manage Subscription", symbol: "person.crop.circle", PolarConfiguration.portalURL)
+                    #endif
+                    link("Report an Issue", symbol: "exclamationmark.bubble", AppInfo.project.appendingPathComponent("issues/new"))
                 }
             }
+
+            #if !APP_STORE
+            section("Your license") { LicenseView() }
+            #endif
 
             section("How it works") {
                 paragraph("Bambu Bar connects straight to your printer on the local network, the same way Bambu Studio does in LAN mode: an encrypted MQTT connection on port 8883, signed in with the printer's access code. The printer's certificate is checked against Bambu Lab's own certificate authority.")
@@ -74,21 +78,12 @@ struct AboutPage: View {
             }
 
             section("Privacy") {
-                paragraph("No account, no cloud, no analytics. Bambu Bar talks to your printer on your network, and the access code is stored in your keychain.")
+                paragraph("Printer data stays on your local network. No app analytics. Printer access codes are stored in your keychain.")
                 if UpdateChecker.isAvailable {
-                    paragraph("Its only other request is the optional daily update check, which reads this project's latest release on GitHub and sends nothing about you or your printers. Updates install only when they carry the developer's signature. Turn the check off in Settings → Updates.")
+                    paragraph("Supporter licenses are validated online, with the key and installation ID stored in Keychain. In-app update checks use the latest GitHub release feed and require an active website supporter license. Update checks send no printer data, and updates must carry the developer's signature. Manage automatic updates in Settings → Updates.")
                 } else {
                     paragraph("It makes no other network requests. Updates come from the App Store.")
                 }
-            }
-
-            section("Links") {
-                link("Project on GitHub", symbol: "chevron.left.forwardslash.chevron.right", AppInfo.project)
-                // The App Store shows what's new itself, and the release page offers the app outside the store.
-                if UpdateChecker.isAvailable {
-                    link("Release Notes", symbol: "doc.text", AppInfo.project.appendingPathComponent("releases/tag/v\(AppInfo.version)"))
-                }
-                link("Report an Issue", symbol: "exclamationmark.bubble", AppInfo.project.appendingPathComponent("issues/new"))
             }
 
             section("Credits") {
@@ -150,6 +145,7 @@ enum AppInfo {
             "Intel"
         #endif
     }()
+    static let websiteURL = URL(string: "https://bambubar.app/?utm_source=bambu_bar&utm_medium=app&utm_campaign=about&utm_content=website")!
     static let project = URL(string: "https://github.com/\(UpdateChecker.repository)")!
     static var summary: String { "Bambu Bar \(version) (\(build)) · \(system) · \(architecture)" }
 }

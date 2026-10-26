@@ -4,11 +4,6 @@ struct SettingsPage: View {
     @Environment(PrinterStore.self) private var store
     @Environment(LoginItem.self) private var loginItem
 
-    @State private var name = ""
-    @State private var host = ""
-    @State private var code = ""
-    @State private var editingConnection = false
-    @State private var confirmForget = false
     @State private var language = AppLanguage.override
 
     var body: some View {
@@ -16,96 +11,9 @@ struct SettingsPage: View {
         VStack(alignment: .leading, spacing: 22) {
             PageHeader(title: "Settings")
 
-            group("Printers", symbol: "printer.dotmatrix.fill") {
-                ForEach(store.sessions) { session in
-                    printerRow(session)
-                    Divider()
-                }
-                HStack {
-                    Text(store.isConfigured ? "Bambu Bar watches all of them at once." : "No printer set up yet.")
-                        .font(.system(size: 11.5)).foregroundStyle(.secondary)
-                    Spacer()
-                    Button("Add Printer…") { MainWindow.addPrinter() }
-                }
-            }
-
-            if let config = store.config {
-                group(store.hasMultiplePrinters ? "\(config.name)" : "Printer", symbol: "printer.fill") {
-                    row("Name") {
-                        HStack(spacing: 8) {
-                            if name != config.name {
-                                Button("Revert") { name = config.name }.controlSize(.small)
-                                Button("Save") { store.rename(config.serial, to: name) }
-                                    .controlSize(.small)
-                                    .buttonStyle(.borderedProminent)
-                                    .tint(Palette.accentDeep)
-                                    .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty)
-                            }
-                            TextField("Name", text: $name)
-                                .textFieldStyle(.roundedBorder)
-                                .frame(width: 220)
-                                .onSubmit { store.rename(config.serial, to: name) }
-                        }
-                    }
-                    if let announced = store.announcedName(for: config.serial), announced != config.name {
-                        HStack {
-                            Text("The printer calls itself \u{201C}\(announced)\u{201D}. This name is only used in Bambu Bar.")
-                                .font(.system(size: 11.5)).foregroundStyle(.secondary)
-                            Spacer()
-                            Button("Use \u{201C}\(announced)\u{201D}") { store.rename(config.serial, to: announced) }
-                                .controlSize(.small)
-                        }
-                    }
-                    row("Model") { Text("Bambu Lab \(config.modelName)").foregroundStyle(.secondary) }
-                    row("Serial number") { Text(config.serial).foregroundStyle(.secondary).textSelection(.enabled) }
-                    row("Status") {
-                        HStack(spacing: 6) {
-                            Circle().fill(store.isOnline ? Palette.accent : Palette.paused).frame(width: 7, height: 7)
-                            Text(store.linkSummary).foregroundStyle(.secondary)
-                        }
-                    }
-                    if editingConnection {
-                        row("IP address") {
-                            TextField("IP address", text: $host).textFieldStyle(.roundedBorder).frame(width: 220)
-                        }
-                        row("Access code") {
-                            SecureField("Access code", text: $code).textFieldStyle(.roundedBorder).frame(width: 220)
-                                .onSubmit(applyConnection)
-                        }
-                        HStack {
-                            Spacer()
-                            Button("Cancel") { editingConnection = false }
-                            Button("Reconnect", action: applyConnection)
-                                .buttonStyle(.borderedProminent)
-                                .tint(Palette.accentDeep)
-                                .disabled(host.isEmpty || code.count < 4)
-                        }
-                    } else {
-                        row("IP address") {
-                            HStack(spacing: 10) {
-                                Text(config.host).foregroundStyle(.secondary).textSelection(.enabled)
-                                Button("Change…") {
-                                    host = config.host
-                                    code = store.accessCode ?? ""
-                                    editingConnection = true
-                                }
-                                .controlSize(.small)
-                            }
-                        }
-                    }
-                    Divider()
-                    HStack {
-                        Text("Bambu Bar follows the printer if its IP address changes.")
-                            .font(.system(size: 11.5)).foregroundStyle(.secondary)
-                        Spacer()
-                        Button("Forget Printer…", role: .destructive) { confirmForget = true }
-                    }
-                }
-            }
-
-            group("Menu bar", symbol: "menubar.rectangle") {
+            SettingsGroup("Menu bar", symbol: "menubar.rectangle") {
                 if store.hasMultiplePrinters {
-                    row("Printer in the menu bar") {
+                    SettingsRow("Printer in the menu bar") {
                         Picker("", selection: $store.menuBarSerial) {
                             Text("Automatic").tag(String?.none)
                             Divider()
@@ -120,14 +28,14 @@ struct SettingsPage: View {
                             .fixedSize(horizontal: false, vertical: true)
                     }
                 }
-                row("While printing, show") {
+                SettingsRow("While printing, show") {
                     Picker("", selection: $store.menuBarStyle) {
                         ForEach(MenuBarStyle.allCases) { Text($0.title).tag($0) }
                     }
                     .labelsHidden()
                     .fixedSize()
                 }
-                row("Open at login") {
+                SettingsRow("Open at login") {
                     Toggle("", isOn: Binding(get: { loginItem.isEnabled }, set: { loginItem.setEnabled($0) }))
                         .toggleStyle(.switch).labelsHidden().tint(Palette.accentDeep)
                 }
@@ -147,8 +55,8 @@ struct SettingsPage: View {
                     .fixedSize(horizontal: false, vertical: true)
             }
 
-            group("Language", symbol: "globe") {
-                row("Language") {
+            SettingsGroup("Language", symbol: "globe") {
+                SettingsRow("Language") {
                     Picker("", selection: $language) {
                         Text("System (\(AppLanguage.name(of: AppLanguage.system)))").tag(String?.none)
                         Divider()
@@ -172,25 +80,18 @@ struct SettingsPage: View {
                 }
             }
 
-            group("Notifications", symbol: "bell.badge.fill") {
-                toggle("Print finished", isOn: $store.notifyFinished)
-                toggle("Print failed, canceled or an error", isOn: $store.notifyFailed)
-                toggle("Print paused (filament runout, user)", isOn: $store.notifyPaused)
-                toggle("Print started", isOn: $store.notifyStarted)
-            }
-
-            group("Controls", symbol: "slider.horizontal.3") {
-                toggle("Ask before stopping a print", isOn: $store.confirmStop)
-                Text("Pause, stop and speed changes need **LAN Only** mode with **Developer Mode** on the printer (Settings → Network on its screen). Reading status and the chamber light work in any mode.")
-                    .font(.system(size: 11.5)).foregroundStyle(.secondary)
-                    .fixedSize(horizontal: false, vertical: true)
+            SettingsGroup("Notifications", symbol: "bell.badge.fill") {
+                SettingsToggle("Print finished", isOn: $store.notifyFinished)
+                SettingsToggle("Print failed, canceled or an error", isOn: $store.notifyFailed)
+                SettingsToggle("Print paused (filament runout, user)", isOn: $store.notifyPaused)
+                SettingsToggle("Print started", isOn: $store.notifyStarted)
             }
 
             if UpdateChecker.isAvailable {
                 UpdatesGroup()
             }
 
-            group("Desktop widget", symbol: "widget.small") {
+            SettingsGroup("Desktop widget", symbol: "widget.small") {
                 HStack {
                     Text("See what each widget size shows, your printers as widgets, and how to add one.")
                         .font(.system(size: 11.5)).foregroundStyle(.secondary)
@@ -198,78 +99,6 @@ struct SettingsPage: View {
                     Button("Show Widgets") { MainWindow.show(.widgets) }
                 }
             }
-        }
-        .onAppear { name = store.config?.name ?? "" }
-        .onChange(of: store.config) { name = store.config?.name ?? "" }
-        .alert("Forget \(store.printerName)?", isPresented: $confirmForget) {
-            Button("Forget", role: .destructive) { if let serial = store.config?.serial { store.forget(serial) } }
-            Button("Cancel", role: .cancel) {}
-        } message: {
-            Text("Bambu Bar disconnects and removes the access code from your keychain. Print history stays.")
-        }
-    }
-
-    private func printerRow(_ session: PrinterSession) -> some View {
-        let isCurrent = session.id == store.current?.id
-        return HStack(spacing: 12) {
-            PrinterArt(status: session.status, model: session.config.modelName, dimmed: !session.isOnline, animated: false)
-                .frame(width: 28, height: 34)
-            VStack(alignment: .leading, spacing: 2) {
-                HStack(spacing: 6) {
-                    Text(session.config.name).font(.system(size: 12.5, weight: .semibold))
-                    if store.hasMultiplePrinters && session.id == store.menuBarSession?.id {
-                        Image(systemName: "menubar.rectangle")
-                            .font(.system(size: 10))
-                            .foregroundStyle(.secondary)
-                            .help("Shown in the menu bar")
-                    }
-                }
-                Text("Bambu Lab \(session.config.modelName) · \(session.config.host)")
-                    .font(.system(size: 11)).foregroundStyle(.secondary)
-            }
-            Spacer()
-            HStack(spacing: 5) {
-                SessionDot(session: session)
-                Text(session.shortState).font(.system(size: 11.5)).foregroundStyle(.secondary)
-            }
-            if store.hasMultiplePrinters {
-                Button(isCurrent ? "Showing" : "Show") { store.select(session.id) }
-                    .controlSize(.small)
-                    .disabled(isCurrent)
-            }
-        }
-    }
-
-    private func applyConnection() {
-        guard var config = store.config, !host.isEmpty, code.count >= 4 else { return }
-        config.host = host.trimmingCharacters(in: .whitespaces)
-        store.connect(to: config, accessCode: code)
-        editingConnection = false
-    }
-
-    private func group<Content: View>(_ title: LocalizedStringKey, symbol: String, @ViewBuilder content: () -> Content) -> some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Label(title, systemImage: symbol)
-                .font(.system(size: 13, weight: .semibold))
-                .foregroundStyle(.primary)
-            VStack(alignment: .leading, spacing: 12) { content() }
-                .panel(radius: 16, padding: 16)
-        }
-    }
-
-    private func row<Content: View>(_ title: LocalizedStringKey, @ViewBuilder content: () -> Content) -> some View {
-        HStack {
-            Text(title).font(.system(size: 12.5))
-            Spacer(minLength: 12)
-            content().font(.system(size: 12.5))
-        }
-    }
-
-    private func toggle(_ title: LocalizedStringKey, isOn: Binding<Bool>) -> some View {
-        HStack {
-            Text(title).font(.system(size: 12.5))
-            Spacer()
-            Toggle("", isOn: isOn).toggleStyle(.switch).labelsHidden().tint(Palette.accentDeep)
         }
     }
 }
@@ -283,11 +112,21 @@ private struct UpdatesGroup: View {
             Label("Updates", systemImage: "arrow.down.circle.fill")
                 .font(.system(size: 13, weight: .semibold))
             VStack(alignment: .leading, spacing: 12) {
+                #if !APP_STORE
+                if !updates.supportsAutomaticUpdates {
+                    Text("Activate your website supporter license to check GitHub for updates and enable automatic updates.")
+                        .font(.system(size: 12.5)).foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                    Button("Activate Supporter License…") { MainWindow.show(.about) }
+                        .controlSize(.small)
+                }
+                #endif
                 HStack {
                     Text("Check for updates automatically").font(.system(size: 12.5))
                     Spacer()
                     Toggle("", isOn: $updates.checksAutomatically).toggleStyle(.switch).labelsHidden().tint(Palette.accentDeep)
                 }
+                .disabled(!updates.supportsAutomaticUpdates)
                 HStack {
                     Text("Download and install updates automatically").font(.system(size: 12.5))
                     Spacer()
@@ -309,10 +148,10 @@ private struct UpdatesGroup: View {
                         ProgressView().controlSize(.small)
                     } else {
                         Button("Check Now") { updates.check() }
-                            .disabled(!updates.isRunning)
+                            .disabled(!updates.canCheckForUpdates)
                     }
                 }
-                Text("Bambu Bar reads the latest release of rolottr/bambu-bar on GitHub once a day. Updates show what’s new and install in place, once their signature is verified.")
+                Text("When enabled, automatic checks run once a day. Updates show what’s new and install in place after their signature is verified.")
                     .font(.system(size: 11.5)).foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
             }

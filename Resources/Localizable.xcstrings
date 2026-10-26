@@ -9494,108 +9494,108 @@
         }
       }
     },
-    "Bambu Bar reads the latest release of rolottr/bambu-bar on GitHub once a day. Updates show what’s new and install in place, once their signature is verified.": {
+    "Bambu Bar checks for updates once a day. Updates show what’s new and install in place, once their signature is verified.": {
       "localizations": {
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bambu Bar jednou denně zkontroluje nejnovější vydání rolottr/bambu-bar na GitHubu. Aktualizace ukážou, co je nového, a po ověření podpisu se nainstalují na místo stávající verze."
+            "value": "Bambu Bar jednou denně zkontroluje nejnovější vydání Bambu Bar na GitHubu. Aktualizace ukážou, co je nového, a po ověření podpisu se nainstalují na místo stávající verze."
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bambu Bar ruft einmal täglich das neueste Release von rolottr/bambu-bar auf GitHub ab. Updates zeigen, was neu ist, und werden direkt installiert, sobald ihre Signatur geprüft ist."
+            "value": "Bambu Bar ruft einmal täglich das neueste Release von Bambu Bar auf GitHub ab. Updates zeigen, was neu ist, und werden direkt installiert, sobald ihre Signatur geprüft ist."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bambu Bar consulta la última versión de rolottr/bambu-bar en GitHub una vez al día. Las actualizaciones muestran las novedades y se instalan directamente, tras verificar su firma."
+            "value": "Bambu Bar consulta la última versión de Bambu Bar en GitHub una vez al día. Las actualizaciones muestran las novedades y se instalan directamente, tras verificar su firma."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bambu Bar consulte la dernière version de rolottr/bambu-bar sur GitHub une fois par jour. Les mises à jour présentent les nouveautés et s’installent directement, une fois leur signature vérifiée."
+            "value": "Bambu Bar consulte la dernière version de Bambu Bar sur GitHub une fois par jour. Les mises à jour présentent les nouveautés et s’installent directement, une fois leur signature vérifiée."
           }
         },
         "hu": {
           "stringUnit": {
             "state": "translated",
-            "value": "A Bambu Bar naponta egyszer lekéri a rolottr/bambu-bar legújabb kiadását a GitHubról. A frissítések megmutatják az újdonságokat, és az aláírásuk ellenőrzése után a régi verzió helyére települnek."
+            "value": "A Bambu Bar naponta egyszer lekéri a Bambu Bar legújabb kiadását a GitHubról. A frissítések megmutatják az újdonságokat, és az aláírásuk ellenőrzése után a régi verzió helyére települnek."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bambu Bar controlla l'ultima release di rolottr/bambu-bar su GitHub una volta al giorno. Gli aggiornamenti mostrano le novità e si installano direttamente, dopo la verifica della firma."
+            "value": "Bambu Bar controlla l'ultima release di Bambu Bar su GitHub una volta al giorno. Gli aggiornamenti mostrano le novità e si installano direttamente, dopo la verifica della firma."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bambu Barは1日に1回、GitHubでrolottr/bambu-barの最新リリースを確認します。アップデートでは新機能が表示され、署名の検証後にそのままインストールされます。"
+            "value": "Bambu Barは1日に1回、GitHubでBambu Barの最新リリースを確認します。アップデートでは新機能が表示され、署名の検証後にそのままインストールされます。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bambu Bar는 하루에 한 번 GitHub에서 rolottr/bambu-bar의 최신 릴리스를 확인합니다. 업데이트는 새로운 기능을 보여 주고, 서명이 확인된 후 바로 설치됩니다."
+            "value": "Bambu Bar는 하루에 한 번 GitHub에서 Bambu Bar의 최신 릴리스를 확인합니다. 업데이트는 새로운 기능을 보여 주고, 서명이 확인된 후 바로 설치됩니다."
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bambu Bar bekijkt één keer per dag de nieuwste release van rolottr/bambu-bar op GitHub. Updates tonen wat er nieuw is en worden ter plekke geïnstalleerd, nadat hun handtekening is gecontroleerd."
+            "value": "Bambu Bar bekijkt één keer per dag de nieuwste release van Bambu Bar op GitHub. Updates tonen wat er nieuw is en worden ter plekke geïnstalleerd, nadat hun handtekening is gecontroleerd."
           }
         },
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bambu Bar raz dziennie sprawdza najnowsze wydanie rolottr/bambu-bar w serwisie GitHub. Uaktualnienia pokazują nowości i po zweryfikowaniu podpisu instalują się w miejsce obecnej wersji."
+            "value": "Bambu Bar raz dziennie sprawdza najnowsze wydanie Bambu Bar w serwisie GitHub. Uaktualnienia pokazują nowości i po zweryfikowaniu podpisu instalują się w miejsce obecnej wersji."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "O Bambu Bar consulta a versão mais recente de rolottr/bambu-bar no GitHub uma vez por dia. As atualizações mostram as novidades e são instaladas no lugar da versão atual, depois que a assinatura é verificada."
+            "value": "O Bambu Bar consulta a versão mais recente de Bambu Bar no GitHub uma vez por dia. As atualizações mostram as novidades e são instaladas no lugar da versão atual, depois que a assinatura é verificada."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Раз в день Bambu Bar проверяет последний выпуск rolottr/bambu-bar на GitHub. Обновления показывают, что нового, и после проверки подписи устанавливаются вместо текущей версии."
+            "value": "Раз в день Bambu Bar проверяет последний выпуск Bambu Bar на GitHub. Обновления показывают, что нового, и после проверки подписи устанавливаются вместо текущей версии."
           }
         },
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bambu Bar läser den senaste versionen av rolottr/bambu-bar på GitHub en gång om dagen. Uppdateringar visar vad som är nytt och installeras på plats när deras signatur har verifierats."
+            "value": "Bambu Bar läser den senaste versionen av Bambu Bar på GitHub en gång om dagen. Uppdateringar visar vad som är nytt och installeras på plats när deras signatur har verifierats."
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bambu Bar, GitHub'daki rolottr/bambu-bar projesinin en son sürümünü günde bir kez denetler. Güncellemeler yenilikleri gösterir ve imzaları doğrulandıktan sonra mevcut sürümün yerine yüklenir."
+            "value": "Bambu Bar, GitHub'daki Bambu Bar projesinin en son sürümünü günde bir kez denetler. Güncellemeler yenilikleri gösterir ve imzaları doğrulandıktan sonra mevcut sürümün yerine yüklenir."
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bambu Bar раз на день перевіряє останній випуск rolottr/bambu-bar на GitHub. Оновлення показують, що нового, і після перевірки підпису встановлюються замість поточної версії."
+            "value": "Bambu Bar раз на день перевіряє останній випуск Bambu Bar на GitHub. Оновлення показують, що нового, і після перевірки підпису встановлюються замість поточної версії."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bambu Bar 每天读取一次 GitHub 上 rolottr/bambu-bar 的最新版本。更新会显示新功能，并在验证签名后直接安装。"
+            "value": "Bambu Bar 每天读取一次 GitHub 上 Bambu Bar 的最新版本。更新会显示新功能，并在验证签名后直接安装。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bambu Bar 每天會讀取一次 GitHub 上 rolottr/bambu-bar 的最新版本。更新項目會顯示新功能，並在驗證簽名後直接安裝。"
+            "value": "Bambu Bar 每天會讀取一次 GitHub 上 Bambu Bar 的最新版本。更新項目會顯示新功能，並在驗證簽名後直接安裝。"
           }
         }
       }

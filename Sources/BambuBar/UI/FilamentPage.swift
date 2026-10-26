@@ -4,6 +4,9 @@ import SwiftUI
 struct FilamentPage: View {
     @Environment(PrinterStore.self) private var store
 
+    // Four slots fill the available AMS width instead of leaving an unused fifth column.
+    private let columns = Array(repeating: GridItem(.flexible(minimum: 150), spacing: 12), count: 4)
+
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             PageHeader(title: "Filament", subtitle: subtitle)
@@ -18,7 +21,7 @@ struct FilamentPage: View {
                             Spacer()
                             climate(unit)
                         }
-                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 150), spacing: 12)], spacing: 12) {
+                        LazyVGrid(columns: columns, spacing: 12) {
                             ForEach(unit.spools) { SpoolCard(spool: $0, active: $0.id == status.activeSpoolID && status.state.isActive) }
                         }
                     }
@@ -26,7 +29,7 @@ struct FilamentPage: View {
                 if let ext = status.externalSpool {
                     VStack(alignment: .leading, spacing: 10) {
                         Text("External spool").font(.system(size: 16, weight: .semibold))
-                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 150), spacing: 12)], spacing: 12) {
+                        LazyVGrid(columns: columns, spacing: 12) {
                             SpoolCard(spool: ext, active: ext.id == status.activeSpoolID && status.state.isActive)
                         }
                     }

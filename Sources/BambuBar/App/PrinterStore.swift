@@ -68,6 +68,7 @@ final class PrinterStore {
     private var lastSnapshotWrite = Date.distantPast
     private var lastSavedKey = ""
     private var lastWidgetKey = ""
+    private var isStarted = false
     private var toastTask: Task<Void, Never>?
     private var insecureTLS = CommandLine.arguments.contains("--insecure-tls")
 
@@ -112,6 +113,8 @@ final class PrinterStore {
     // MARK: - Lifecycle
 
     func start() {
+        guard !isStarted else { return }
+        isStarted = true
         discovery.onFound = { [weak self] printer in self?.found(printer) }
         discovery.onBlocked = { [weak self] blocked in self?.discoveryBlockedChanged(blocked) }
 

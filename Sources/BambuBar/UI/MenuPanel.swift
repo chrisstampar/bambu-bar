@@ -66,6 +66,18 @@ struct MenuPanel: View {
                 ToastView(toast: toast)
                     .transition(.move(edge: .bottom).combined(with: .opacity))
             }
+            #if !APP_STORE
+            if !LicenseStore.shared.hasAccess {
+                HStack {
+                    Link("Support this project", destination: PolarConfiguration.supportURL(from: .menuPanel))
+                        .font(.caption)
+                    Spacer()
+                    Button("Manage License…") { MainWindow.show(.about) }
+                        .buttonStyle(.borderless).font(.caption)
+                }
+                .padding(.horizontal, 4)
+            }
+            #endif
             footer
         }
         .padding(12)
@@ -574,12 +586,12 @@ struct ConnectionCard: View {
                     } else if store.phase == .unauthorized, let known = store.replacementCode {
                         Button("Use Code from \(known.source)") { store.useReplacementCode() }
                             .controlSize(.small)
-                        Button("Settings…") { MainWindow.show(.settings) }
+                        Button("Printers") { MainWindow.show(.printers) }
                             .controlSize(.small)
                     } else {
                         Button("Try Again") { store.refresh() }
                             .controlSize(.small)
-                        Button("Settings…") { MainWindow.show(.settings) }
+                        Button("Printers") { MainWindow.show(.printers) }
                             .controlSize(.small)
                     }
                 }
