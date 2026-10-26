@@ -276,16 +276,27 @@ struct WidgetShowcase: View {
     private let margin: CGFloat = 26
 
     var body: some View {
-        HStack(alignment: .top, spacing: 20) {
-            stage
-            VStack(alignment: .leading, spacing: 14) {
-                controls
-                features
+        ViewThatFits(in: .horizontal) {
+            HStack(alignment: .top, spacing: 20) {
+                stage
+                details.frame(minWidth: 240)
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
+            .frame(minWidth: 730)
+            VStack(alignment: .leading, spacing: 20) {
+                stage
+                details
+            }
         }
         .onAppear(perform: startTicker)
         .onDisappear { ticker?.cancel() }
+    }
+
+    private var details: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            controls
+            features
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     private var stage: some View {

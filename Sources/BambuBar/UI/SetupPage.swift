@@ -16,7 +16,12 @@ struct SetupPage: View {
     @State private var code = ""
     @State private var selected: String?
     @State private var manual = false
-    @State private var openAtLogin = true
+    /// App Review wants Open at Login to be the person's own choice, so the App Store build starts unchecked.
+    #if APP_STORE
+        @State private var openAtLogin = false
+    #else
+        @State private var openAtLogin = true
+    #endif
     /// The one found printer is picked automatically once; after that only the person changes the selection.
     @State private var autoPicked = false
     /// Where the access code came from ("Bambu Studio"…), nil when typed.
@@ -173,7 +178,7 @@ struct SetupPage: View {
             VStack(alignment: .leading, spacing: 8) {
                 Text("Welcome to Bambu Bar")
                     .font(.system(size: 28, weight: .bold))
-                Text("Your printer's progress, temperatures and filament, one click away in the menu bar. Bambu Bar talks to the printer directly over your network: no account, no cloud.")
+                Text("Your printer's progress, temperatures and filament, one click away in the menu bar. Bambu Bar talks to the printer directly over your network, without a Bambu Lab sign-in.")
                     .font(.system(size: 13.5))
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
@@ -285,14 +290,17 @@ struct SetupPage: View {
                 Image(systemName: "square.and.arrow.down.on.square")
                     .foregroundStyle(dropTargeted ? Palette.accent : .secondary)
                 VStack(alignment: .leading, spacing: 1) {
-                    Text("Bambu Studio on another Mac?").font(.system(size: 12, weight: .semibold))
-                    (importNote.map { Text(LocalizedStringKey($0)) } ?? Text("Drop its **BambuStudio.conf** here, or its BambuStudio folder. It's in **Library → Application Support → BambuStudio** in that user's home folder."))
+                    Text(store.slicerAccessNeeded ? "Use the codes Bambu Studio saved" : "Bambu Studio on another Mac?")
+                        .font(.system(size: 12, weight: .semibold))
+                    (importNote.map { Text(LocalizedStringKey($0)) } ?? (store.slicerAccessNeeded
+                        ? Text("Choose its **BambuStudio** folder (or OrcaSlicer's) once, and Bambu Bar reads the access codes it saved. A **BambuStudio.conf** from another Mac can be dropped here too.")
+                        : Text("Drop its **BambuStudio.conf** here, or its BambuStudio folder. It's in **Library → Application Support → BambuStudio** in that user's home folder.")))
                         .font(.system(size: 11.5))
                         .foregroundStyle(.secondary)
                         .fixedSize(horizontal: false, vertical: true)
                 }
                 Spacer(minLength: 8)
-                Button("Choose File…", action: chooseSettingsFile)
+                Button(store.slicerAccessNeeded ? "Choose Folder…" : "Choose File…", action: chooseSettingsFile)
                     .controlSize(.small)
             }
         }
@@ -310,8 +318,12 @@ struct SetupPage: View {
     private func chooseSettingsFile() {
         let panel = NSOpenPanel()
         panel.title = String(localized: "Choose Bambu Studio's settings")
-        panel.message = String(localized: "Pick BambuStudio.conf, or the BambuStudio folder it's in.")
-        panel.prompt = String(localized: "Use", comment: "Open panel button")
+        panel.message = store.slicerAccessNeeded
+            ? String(localized: "Choose the BambuStudio or OrcaSlicer folder. Bambu Bar only reads the printers' access codes from it.")
+            : String(localized: "Pick BambuStudio.conf, or the BambuStudio folder it's in.")
+        panel.prompt = store.slicerAccessNeeded
+            ? String(localized: "Allow", comment: "Open panel button that grants access to a folder")
+            : String(localized: "Use", comment: "Open panel button")
         panel.allowsMultipleSelection = false
         panel.canChooseFiles = true
         panel.canChooseDirectories = true

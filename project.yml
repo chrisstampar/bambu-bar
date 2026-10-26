@@ -1,16 +1,31 @@
-# XcodeGen spec for Bambu Bar. scripts/build.sh generates BambuBar.xcodeproj from it;
-# the project itself is not checked in.
+# XcodeGen spec for Bambu Bar. scripts/generate.sh (run by build.sh and appstore.sh) generates
+# BambuBar.xcodeproj from it; the project itself is not checked in. Two app targets share every source:
+#   BambuBar          Developer ID build for GitHub, with Sparkle for in-app updates. build.sh builds it
+#                     (Release or Debug) and signs it by hand, outside Xcode.
+#   BambuBarAppStore  sandboxed Mac App Store build without Sparkle (App Review doesn't allow apps to update
+#                     themselves), signed automatically by Xcode in the AppStore configuration: archive the
+#                     "BambuBar App Store" scheme (Product → Archive, or scripts/appstore.sh).
 name: BambuBar
+configs:
+  Debug: debug
+  Release: release
+  AppStore: release
 options:
   bundleIdPrefix: dev.rolottr
   deploymentTarget:
     macOS: "26.0"
   createIntermediateGroups: true
+  defaultConfig: Release
   developmentLanguage: en
+packages:
+  # In-app updates for the Developer ID build: https://sparkle-project.org
+  Sparkle:
+    url: https://github.com/sparkle-project/Sparkle
+    from: "2.9.0"
 settings:
   base:
     SWIFT_VERSION: "5.0"
-    MARKETING_VERSION: "1.3.1"
+    MARKETING_VERSION: "1.5.0"
     CURRENT_PROJECT_VERSION: "1"
     DEVELOPMENT_TEAM: PCZ6F8Q9DZ
     APP_GROUP: "$(DEVELOPMENT_TEAM).dev.rolottr.BambuBar"
@@ -24,8 +39,15 @@ settings:
     ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: NO
     LOCALIZATION_PREFERS_STRING_CATALOGS: YES
     SWIFT_EMIT_LOC_STRINGS: YES
-targets:
-  BambuBar:
+  configs:
+    AppStore:
+      CODE_SIGN_STYLE: Automatic
+      CODE_SIGN_IDENTITY: Apple Development
+      # macOS signs without profiles unless asked; TestFlight wants one in the app and in the widget.
+      PROVISIONING_PROFILE_REQUIRED: YES
+      SWIFT_ACTIVE_COMPILATION_CONDITIONS: APP_STORE
+targetTemplates:
+  App:
     type: application
     platform: macOS
     sources:
@@ -44,7 +66,8 @@ targets:
         buildPhase: resources
       - path: Resources/Printers
         buildPhase: resources
-      - path: Resources/AppIcon.icns
+      - path: Resources/Assets.xcassets
+      - path: Resources/PrivacyInfo.xcprivacy
         buildPhase: resources
       - path: LICENSE
         buildPhase: resources
@@ -52,13 +75,27 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: dev.rolottr.BambuBar
         PRODUCT_NAME: Bambu Bar
+        PRODUCT_MODULE_NAME: BambuBar
         INFOPLIST_FILE: Resources/Info.plist
-        CODE_SIGN_ENTITLEMENTS: Resources/Signing/BambuBar.entitlements
-        ASSETCATALOG_COMPILER_APPICON_NAME: ""
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
     dependencies:
       - target: BambuBarWidget
         embed: true
         codeSign: true
+targets:
+  BambuBar:
+    templates: [App]
+    settings:
+      base:
+        CODE_SIGN_ENTITLEMENTS: Resources/Signing/BambuBar.entitlements
+    dependencies:
+      - package: Sparkle
+  BambuBarAppStore:
+    templates: [App]
+    settings:
+      base:
+        CODE_SIGN_ENTITLEMENTS: Resources/Signing/BambuBar-AppStore.entitlements
+        SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited) APP_STORE"
   BambuBarWidget:
     type: app-extension
     platform: macOS
@@ -83,3 +120,28 @@ targets:
     dependencies:
       - sdk: WidgetKit.framework
       - sdk: SwiftUI.framework
+schemes:
+  BambuBar:
+    build:
+      targets:
+        BambuBar: all
+    run:
+      config: Debug
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
+  BambuBar App Store:
+    build:
+      targets:
+        BambuBarAppStore: all
+    run:
+      config: AppStore
+    profile:
+      config: AppStore
+    analyze:
+      config: AppStore
+    archive:
+      config: AppStore

@@ -1,6 +1,14 @@
 import SwiftUI
 
 struct MainView: View {
+    var body: some View {
+        MainContentView()
+            .frame(minWidth: MainWindow.minimumContentSize.width,
+                   minHeight: MainWindow.minimumContentSize.height)
+    }
+}
+
+private struct MainContentView: View {
     @Environment(PrinterStore.self) private var store
     @Environment(Navigation.self) private var navigation
 
@@ -22,21 +30,59 @@ struct MainView: View {
                 if !store.hasMultiplePrinters { sidebarFooter }
             }
         } detail: {
-            ScrollView {
-                page
-                    .frame(maxWidth: 860)
-                    .padding(.horizontal, 28)
-                    .padding(.vertical, 24)
-                    .frame(maxWidth: .infinity)
+            GeometryReader { geometry in
+                ScrollView {
+                    page
+                        .frame(maxWidth: 860)
+                        .padding(.horizontal, 28)
+                        .padding(.vertical, 24)
+                        .frame(maxWidth: .infinity)
+                }
+                // Keep the initial heading below the window controls, but allow scrolled
+                // content to pass beneath the floating supporter link in the title bar.
+                .safeAreaPadding(.top, geometry.safeAreaInsets.top)
+                .ignoresSafeArea(.container, edges: .top)
+                .scrollContentBackground(.hidden)
+                .scrollEdgeEffectHidden(true, for: .top)
             }
-            .scrollContentBackground(.hidden)
             .background(PageBackground(status: store.status))
-            .overlay(alignment: .bottomTrailing) { UpdateOffer() }
             .navigationTitle(navigation.section.title)
             .toolbar(removing: .title)
+            .toolbarBackground(.hidden, for: .windowToolbar)
         }
-        .frame(minWidth: 820, minHeight: 600)
+        #if !APP_STORE
+        .overlay(alignment: .topTrailing) {
+            supporterControl
+                .padding(.top, 16)
+                .padding(.trailing, 24)
+                .ignoresSafeArea(.container, edges: .top)
+        }
+        #endif
     }
+
+    #if !APP_STORE
+    /// Floats over the window's title-bar area without reserving space in the scrolling page.
+    private var supporterControl: some View {
+        Group {
+            if LicenseStore.shared.hasAccess {
+                Button { MainWindow.show(.about) } label: {
+                    Label("Hero Supporter", systemImage: "star.circle.fill")
+                }
+                .foregroundStyle(Palette.accent)
+                .help("Thanks for supporting Bambu Bar")
+            } else {
+                Link(destination: PolarConfiguration.supportURL(from: .mainWindow)) {
+                    Label("Support this project", systemImage: "heart")
+                }
+                .foregroundStyle(Palette.accent)
+            }
+        }
+        .buttonStyle(.plain)
+        .labelStyle(.titleAndIcon)
+        .font(.system(size: 12, weight: .semibold))
+        .fixedSize()
+    }
+    #endif
 
     private func row(_ section: AppSection) -> some View {
         Label(section.title, systemImage: section.icon).tag(section)
@@ -51,6 +97,7 @@ struct MainView: View {
             if store.isConfigured && !navigation.addingPrinter { OverviewPage() } else { SetupPage() }
         case .filament: FilamentPage()
         case .widgets: WidgetsPage()
+        case .printers: PrintersPage()
         case .settings: SettingsPage()
         case .about: AboutPage()
         }

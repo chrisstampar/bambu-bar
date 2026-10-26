@@ -61,6 +61,6 @@ enum LaunchContext {
     /// Demo, showcase, README-frame and probe runs: no update checks.
     static var isDeveloperRun: Bool {
         let arguments = CommandLine.arguments
-        return ["--demo", "--showcase", "--readme-frames", "--probe", "--connect", "--emulator"].contains { arguments.contains($0) }
+        return ["--demo", "--showcase", "--readme-frames", "--store-media", "--probe", "--connect", "--emulator"].contains { arguments.contains($0) }
     }
 }

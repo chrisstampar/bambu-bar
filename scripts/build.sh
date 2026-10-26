@@ -24,15 +24,7 @@ mkdir -p "$BUILD"
 if [[ -z "${DEVELOPER_DIR:-}" ]] && ! xcodebuild -version >/dev/null 2>&1; then
   export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
 fi
-command -v xcodegen >/dev/null || { echo "xcodegen is required: brew install xcodegen" >&2; exit 2; }
-
-echo "==> App icon"
-rm -rf "$BUILD/AppIcon.iconset"
-swift "$ROOT/scripts/generate-icon.swift" "$BUILD/AppIcon.iconset" >/dev/null
-iconutil -c icns "$BUILD/AppIcon.iconset" -o "$ROOT/Resources/AppIcon.icns"
-
-echo "==> Generating Xcode project"
-xcodegen generate --quiet --spec "$ROOT/project.yml" --project "$ROOT"
+"$ROOT/scripts/generate.sh"
 
 echo "==> xcodebuild ($CONFIG)"
 xcodebuild -project BambuBar.xcodeproj -scheme BambuBar -configuration "$CONFIG" \
@@ -46,7 +38,7 @@ rm -rf "$APP"
 mkdir -p "${APP:h}"
 ditto "$DERIVED/Build/Products/$CONFIG/Bambu Bar.app" "$APP"
 
-# Sign inside-out: the widget (sandboxed) first, then the app. Entitlements get the concrete app group.
+# Sign inside-out: Sparkle and the widget (sandboxed) first, then the app. Entitlements get the concrete app group.
 if [[ -z "${SIGN_IDENTITY:-}" ]]; then
   SIGN_IDENTITY=$(security find-identity -v -p codesigning | awk -F'"' '/Developer ID Application/ {print $2; exit}')
 fi
@@ -55,15 +47,24 @@ mkdir -p "$ENT"
 for f in BambuBar BambuBarWidget; do
   sed "s/\$(APP_GROUP)/$APP_GROUP/g" "$ROOT/Resources/Signing/$f.entitlements" > "$ENT/$f.entitlements"
 done
+# Sparkle's feed and public key go into this build only: the App Store build doesn't update itself.
+/usr/libexec/PlistBuddy -c "Merge $ROOT/Resources/Sparkle-Info.plist" "$APP/Contents/Info.plist" >/dev/null
+
 WIDGET="$APP/Contents/PlugIns/BambuBarWidget.appex"
+SPARKLE="$APP/Contents/Frameworks/Sparkle.framework"
+# The app isn't sandboxed, so Sparkle installs updates itself and its XPC services aren't needed.
+rm -rf "$SPARKLE/Versions/B/XPCServices" "$SPARKLE/XPCServices"
 if [[ -n "$SIGN_IDENTITY" ]]; then
   echo "==> Signing with $SIGN_IDENTITY"
-  codesign --force --options runtime --timestamp --sign "$SIGN_IDENTITY" --entitlements "$ENT/BambuBarWidget.entitlements" "$WIDGET"
-  codesign --force --options runtime --timestamp --sign "$SIGN_IDENTITY" --entitlements "$ENT/BambuBar.entitlements" "$APP"
+  SIGN=(--force --options runtime --timestamp --sign "$SIGN_IDENTITY")
 else
   echo "==> Ad-hoc signing (no Developer ID identity found; the widget won't load)"
-  codesign --force --sign - --entitlements "$ENT/BambuBarWidget.entitlements" "$WIDGET"
-  codesign --force --sign - --entitlements "$ENT/BambuBar.entitlements" "$APP"
+  SIGN=(--force --sign -)
 fi
+codesign "${SIGN[@]}" "$SPARKLE/Versions/B/Autoupdate"
+codesign "${SIGN[@]}" "$SPARKLE/Versions/B/Updater.app"
+codesign "${SIGN[@]}" "$SPARKLE"
+codesign "${SIGN[@]}" --entitlements "$ENT/BambuBarWidget.entitlements" "$WIDGET"
+codesign "${SIGN[@]}" --entitlements "$ENT/BambuBar.entitlements" "$APP"
 codesign --verify --strict --deep "$APP"
 echo "==> Built $APP"

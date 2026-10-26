@@ -26,8 +26,14 @@ struct AppCommands: Commands {
     var body: some Commands {
         CommandGroup(replacing: .appInfo) {
             Button("About Bambu Bar") { MainWindow.show(.about) }
-            Button("Check for Updates…") { Task { await UpdateChecker.shared.checkAndReport() } }
-                .disabled(UpdateChecker.shared.state == .checking)
+            #if !APP_STORE
+            Button("Manage License…") { MainWindow.show(.about) }
+            Button("Support this project") { NSWorkspace.shared.open(PolarConfiguration.supportURL(from: .appMenu)) }
+            #endif
+            if UpdateChecker.isAvailable {
+                Button("Check for Updates…") { UpdateChecker.shared.showUpdate() }
+                    .disabled(!UpdateChecker.shared.canCheckForUpdates)
+            }
         }
         CommandGroup(replacing: .appSettings) {
             Button("Settings…") { MainWindow.show(.settings) }
@@ -39,9 +45,9 @@ struct AppCommands: Commands {
                 Button(AppSection.fleet.title) { MainWindow.show(.fleet) }
                     .keyboardShortcut("0")
             }
-            ForEach(Array(AppSection.allCases.filter { $0 != .fleet }.enumerated()), id: \.element) { index, section in
+            ForEach(AppSection.allCases.filter { $0 != .fleet }) { section in
                 Button(section.title) { MainWindow.show(section) }
-                    .keyboardShortcut(KeyEquivalent(Character("\(index + 1)")))
+                    .keyboardShortcut(section.shortcut)
             }
             Divider()
         }
@@ -81,10 +87,22 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             Probe.run(host: probe.host, serial: probe.serial, code: probe.code, seconds: probe.seconds)
             return
         }
+        SingleInstance.handOverIfRunning(background: background)
+        SingleInstance.listen()
         PrinterStore.shared.start()
-        UpdateChecker.shared.startAutomaticChecks()
+        #if !APP_STORE
+        LicenseStore.shared.onAccessChange = { _ in
+            UpdateChecker.shared.supporterStatusChanged()
+        }
+        LicenseStore.shared.start()
+        #endif
+        UpdateChecker.shared.start()
         WidgetUpdate.refreshIfUpdated()
         observeAppWindows()
+        if let dir = StoreMedia.directory {
+            StoreMedia.run(into: dir)
+            return
+        }
         if let dir = ReadmeFrames.directory {
             ReadmeFrames.run(into: dir)
             return
@@ -148,7 +166,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 }
 
 enum AppSection: String, CaseIterable, Identifiable {
-    case fleet, overview, filament, widgets, settings, about
+    case fleet, overview, filament, widgets, printers, settings, about
     var id: String { rawValue }
 
     var title: String {
@@ -157,8 +175,22 @@ enum AppSection: String, CaseIterable, Identifiable {
         case .overview: return String(localized: "Printer")
         case .filament: return String(localized: "Filament")
         case .widgets: return String(localized: "Widgets")
+        case .printers: return String(localized: "Printers")
         case .settings: return String(localized: "Settings")
         case .about: return String(localized: "About")
+        }
+    }
+
+    /// Keep existing shortcuts stable when adding sidebar pages.
+    var shortcut: KeyEquivalent {
+        switch self {
+        case .fleet: return "0"
+        case .overview: return "1"
+        case .filament: return "2"
+        case .widgets: return "3"
+        case .settings: return "4"
+        case .about: return "5"
+        case .printers: return "6"
         }
     }
 
@@ -168,6 +200,7 @@ enum AppSection: String, CaseIterable, Identifiable {
         case .overview: return "printer.fill"
         case .filament: return "circle.circle.fill"
         case .widgets: return "widget.medium"
+        case .printers: return "printer.dotmatrix.fill"
         case .settings: return "gearshape.fill"
         case .about: return "info.circle.fill"
         }
@@ -189,6 +222,9 @@ final class Navigation {
 /// The main window, hosted in AppKit so the Dock icon, menus and the panel can all reopen it.
 @MainActor
 enum MainWindow {
+    // Fits four 150-point AMS cards, spacing, page padding, and the widest sidebar.
+    static let minimumContentSize = NSSize(width: 960, height: 600)
+    private static let defaultContentSize = NSSize(width: 980, height: 700)
     private static var window: NSWindow?
     private static var closeObserver: NSObjectProtocol?
 
@@ -197,22 +233,26 @@ enum MainWindow {
         if let setup { Navigation.shared.setupCandidate = setup }
         if window == nil {
             let w = NSWindow(
-                contentRect: NSRect(x: 0, y: 0, width: 980, height: 700),
+                contentRect: NSRect(origin: .zero, size: defaultContentSize),
                 styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
                 backing: .buffered, defer: false)
             w.title = "Bambu Bar"
             w.titlebarAppearsTransparent = true
             w.isReleasedWhenClosed = false
-            w.minSize = NSSize(width: 820, height: 600)
             w.toolbarStyle = .unified
             w.contentViewController = NSHostingController(
                 rootView: MainView()
                     .environment(PrinterStore.shared)
                     .environment(Navigation.shared)
                     .environment(LoginItem.shared))
-            w.setContentSize(NSSize(width: 980, height: 700))
+            w.setContentSize(defaultContentSize)
             w.center()
             w.setFrameAutosaveName("BambuBarMain")
+            w.contentMinSize = minimumContentSize
+            // Previously saved windows may be smaller than the new minimum.
+            let restoredSize = w.contentRect(forFrameRect: w.frame).size
+            w.setContentSize(NSSize(width: max(restoredSize.width, minimumContentSize.width),
+                                    height: max(restoredSize.height, minimumContentSize.height)))
             window = w
             // A closed window would keep its views updating with every report (and the printer model
             // animating), so it's let go and built again on the next open.

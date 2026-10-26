@@ -16,20 +16,29 @@ enum WidgetUpdate {
         let build = currentBuild
         guard UserDefaults.standard.string(forKey: key) != build else { return }
         UserDefaults.standard.set(build, forKey: key)
-        stopOldExtensions()
+        #if !APP_STORE
+            stopOldExtensions()
+        #endif
         // WidgetKit relaunches the extension from the new bundle when it next needs it.
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) { WidgetCenter.shared.reloadAllTimelines() }
     }
 
-    /// Version, build and when the executable was written, so reinstalling the same version counts too.
+    /// Version, build and when the executable was written, so reinstalling the same version counts too. (Every
+    /// App Store upload has a build number of its own, and that build reads no file dates, which would need a
+    /// privacy manifest reason.)
     private static var currentBuild: String {
-        let written = Bundle.main.executableURL
-            .flatMap { try? $0.resourceValues(forKeys: [.contentModificationDateKey]).contentModificationDate }
-            .map { String(Int($0.timeIntervalSince1970)) } ?? "-"
-        return "\(AppInfo.version)-\(AppInfo.build)-\(written)"
+        #if APP_STORE
+            return "\(AppInfo.version)-\(AppInfo.build)"
+        #else
+            let written = Bundle.main.executableURL
+                .flatMap { try? $0.resourceValues(forKeys: [.contentModificationDateKey]).contentModificationDate }
+                .map { String(Int($0.timeIntervalSince1970)) } ?? "-"
+            return "\(AppInfo.version)-\(AppInfo.build)-\(written)"
+        #endif
     }
 
-    /// Terminates running copies of Bambu Bar's widget extension (only ours, found by path).
+    /// Terminates running copies of Bambu Bar's widget extension (only ours, found by path). The App Sandbox
+    /// doesn't allow signalling other processes, so the App Store build leaves this to WidgetKit.
     private static func stopOldExtensions() {
         let count = proc_listallpids(nil, 0)
         guard count > 0 else { return }

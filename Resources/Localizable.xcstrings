@@ -7371,6 +7371,113 @@
         }
       }
     },
+    "Allow": {
+      "comment": "Open panel button that grants access to a folder",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Povolit"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erlauben"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Permitir"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Autoriser"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Engedélyezés"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consenti"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "許可"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "허용"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sta toe"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zezwól"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Permitir"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Разрешить"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tillåt"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İzin Ver"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дозволити"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "允许"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "允許"
+          }
+        }
+      }
+    },
     "Allow Bambu Bar in System Settings → General → Login Items.": {
       "localizations": {
         "cs": {
@@ -8539,112 +8646,6 @@
         }
       }
     },
-    "Bambu Bar %@ is the latest version.": {
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bambu Bar %@ je nejnovější verze."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bambu Bar %@ ist die neueste Version."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bambu Bar %@ es la versión más reciente."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bambu Bar %@ est la dernière version."
-          }
-        },
-        "hu": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A Bambu Bar %@ a legfrissebb verzió."
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bambu Bar %@ è la versione più recente."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bambu Bar %@は最新バージョンです。"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bambu Bar %@이(가) 최신 버전입니다."
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bambu Bar %@ is de nieuwste versie."
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bambu Bar %@ to najnowsza wersja."
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "O Bambu Bar %@ é a versão mais recente."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bambu Bar %@ — последняя версия."
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bambu Bar %@ är den senaste versionen."
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bambu Bar %@ en son sürüm."
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bambu Bar %@ — найновіша версія."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bambu Bar %@ 是最新版本。"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bambu Bar %@ 是最新版本。"
-          }
-        }
-      }
-    },
     "Bambu Bar can't reach your network": {
       "localizations": {
         "cs": {
@@ -9493,108 +9494,108 @@
         }
       }
     },
-    "Bambu Bar reads the latest release of rolottr/bambu-bar on GitHub once a day and never installs anything by itself.": {
+    "Bambu Bar checks for updates once a day. Updates show what’s new and install in place, once their signature is verified.": {
       "localizations": {
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bambu Bar jednou denně zkontroluje nejnovější vydání rolottr/bambu-bar na GitHubu a nikdy nic sám neinstaluje."
+            "value": "Bambu Bar jednou denně zkontroluje nejnovější vydání Bambu Bar na GitHubu. Aktualizace ukážou, co je nového, a po ověření podpisu se nainstalují na místo stávající verze."
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bambu Bar ruft einmal täglich das neueste Release von rolottr/bambu-bar auf GitHub ab und installiert nie selbst etwas."
+            "value": "Bambu Bar ruft einmal täglich das neueste Release von Bambu Bar auf GitHub ab. Updates zeigen, was neu ist, und werden direkt installiert, sobald ihre Signatur geprüft ist."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bambu Bar consulta la última versión de rolottr/bambu-bar en GitHub una vez al día y nunca instala nada por sí solo."
+            "value": "Bambu Bar consulta la última versión de Bambu Bar en GitHub una vez al día. Las actualizaciones muestran las novedades y se instalan directamente, tras verificar su firma."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bambu Bar consulte la dernière version de rolottr/bambu-bar sur GitHub une fois par jour et n’installe jamais rien de lui-même."
+            "value": "Bambu Bar consulte la dernière version de Bambu Bar sur GitHub une fois par jour. Les mises à jour présentent les nouveautés et s’installent directement, une fois leur signature vérifiée."
           }
         },
         "hu": {
           "stringUnit": {
             "state": "translated",
-            "value": "A Bambu Bar naponta egyszer lekéri a rolottr/bambu-bar legújabb kiadását a GitHubról, és soha nem telepít semmit magától."
+            "value": "A Bambu Bar naponta egyszer lekéri a Bambu Bar legújabb kiadását a GitHubról. A frissítések megmutatják az újdonságokat, és az aláírásuk ellenőrzése után a régi verzió helyére települnek."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bambu Bar controlla l'ultima release di rolottr/bambu-bar su GitHub una volta al giorno e non installa mai nulla da solo."
+            "value": "Bambu Bar controlla l'ultima release di Bambu Bar su GitHub una volta al giorno. Gli aggiornamenti mostrano le novità e si installano direttamente, dopo la verifica della firma."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bambu Barは1日に1回、GitHubでrolottr/bambu-barの最新リリースを確認します。自動で何かをインストールすることはありません。"
+            "value": "Bambu Barは1日に1回、GitHubでBambu Barの最新リリースを確認します。アップデートでは新機能が表示され、署名の検証後にそのままインストールされます。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bambu Bar는 하루에 한 번 GitHub에서 rolottr/bambu-bar의 최신 릴리스를 확인하며, 아무것도 자동으로 설치하지 않습니다."
+            "value": "Bambu Bar는 하루에 한 번 GitHub에서 Bambu Bar의 최신 릴리스를 확인합니다. 업데이트는 새로운 기능을 보여 주고, 서명이 확인된 후 바로 설치됩니다."
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bambu Bar bekijkt één keer per dag de nieuwste release van rolottr/bambu-bar op GitHub en installeert nooit zelf iets."
+            "value": "Bambu Bar bekijkt één keer per dag de nieuwste release van Bambu Bar op GitHub. Updates tonen wat er nieuw is en worden ter plekke geïnstalleerd, nadat hun handtekening is gecontroleerd."
           }
         },
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bambu Bar raz dziennie sprawdza najnowsze wydanie rolottr/bambu-bar w serwisie GitHub i nigdy niczego sam nie instaluje."
+            "value": "Bambu Bar raz dziennie sprawdza najnowsze wydanie Bambu Bar w serwisie GitHub. Uaktualnienia pokazują nowości i po zweryfikowaniu podpisu instalują się w miejsce obecnej wersji."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "O Bambu Bar consulta a versão mais recente de rolottr/bambu-bar no GitHub uma vez por dia e nunca instala nada sozinho."
+            "value": "O Bambu Bar consulta a versão mais recente de Bambu Bar no GitHub uma vez por dia. As atualizações mostram as novidades e são instaladas no lugar da versão atual, depois que a assinatura é verificada."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Раз в день Bambu Bar проверяет последний выпуск rolottr/bambu-bar на GitHub и никогда ничего не устанавливает сам."
+            "value": "Раз в день Bambu Bar проверяет последний выпуск Bambu Bar на GitHub. Обновления показывают, что нового, и после проверки подписи устанавливаются вместо текущей версии."
           }
         },
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bambu Bar läser den senaste versionen av rolottr/bambu-bar på GitHub en gång om dagen och installerar aldrig något på egen hand."
+            "value": "Bambu Bar läser den senaste versionen av Bambu Bar på GitHub en gång om dagen. Uppdateringar visar vad som är nytt och installeras på plats när deras signatur har verifierats."
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bambu Bar, GitHub'daki rolottr/bambu-bar projesinin en son sürümünü günde bir kez denetler ve kendi başına hiçbir şey yüklemez."
+            "value": "Bambu Bar, GitHub'daki Bambu Bar projesinin en son sürümünü günde bir kez denetler. Güncellemeler yenilikleri gösterir ve imzaları doğrulandıktan sonra mevcut sürümün yerine yüklenir."
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bambu Bar раз на день перевіряє останній випуск rolottr/bambu-bar на GitHub і ніколи нічого не встановлює сам."
+            "value": "Bambu Bar раз на день перевіряє останній випуск Bambu Bar на GitHub. Оновлення показують, що нового, і після перевірки підпису встановлюються замість поточної версії."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bambu Bar 每天读取一次 GitHub 上 rolottr/bambu-bar 的最新版本，绝不会自行安装任何内容。"
+            "value": "Bambu Bar 每天读取一次 GitHub 上 Bambu Bar 的最新版本。更新会显示新功能，并在验证签名后直接安装。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bambu Bar 每天會讀取一次 GitHub 上 rolottr/bambu-bar 的最新版本，絕不會自行安裝任何東西。"
+            "value": "Bambu Bar 每天會讀取一次 GitHub 上 Bambu Bar 的最新版本。更新項目會顯示新功能，並在驗證簽名後直接安裝。"
           }
         }
       }
@@ -15470,6 +15471,112 @@
         }
       }
     },
+    "Choose Folder…": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vybrat složku…"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ordner auswählen …"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elegir carpeta…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisir un dossier…"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mappa kiválasztása…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scegli cartella…"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "フォルダを選択…"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "폴더 선택…"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kies map…"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wybierz folder…"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escolher Pasta…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выбрать папку…"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Välj mapp…"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Klasör Seç…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вибрати папку…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "选择文件夹…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選擇檔案夾⋯"
+          }
+        }
+      }
+    },
     "Choose a printer": {
       "localizations": {
         "cs": {
@@ -15572,6 +15679,218 @@
           "stringUnit": {
             "state": "translated",
             "value": "選擇印表機"
+          }
+        }
+      }
+    },
+    "Choose its **BambuStudio** folder (or OrcaSlicer's) once, and Bambu Bar reads the access codes it saved. A **BambuStudio.conf** from another Mac can be dropped here too.": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jednou vyberte jeho složku **BambuStudio** (nebo složku OrcaSliceru) a Bambu Bar načte přístupové kódy, které uložil. Můžete sem přetáhnout i soubor **BambuStudio.conf** z jiného Macu."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wählen Sie einmal den Ordner **BambuStudio** (oder den von OrcaSlicer), und Bambu Bar liest die dort gespeicherten Zugangscodes. Eine **BambuStudio.conf** von einem anderen Mac können Sie auch hier ablegen."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elija una vez su carpeta **BambuStudio** (o la de OrcaSlicer) y Bambu Bar leerá los códigos de acceso que guardó. También puede soltar aquí un **BambuStudio.conf** de otro Mac."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisissez une fois son dossier **BambuStudio** (ou celui d’OrcaSlicer) et Bambu Bar lira les codes d’accès qu’il a enregistrés. Vous pouvez aussi déposer ici un fichier **BambuStudio.conf** d’un autre Mac."
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Válaszd ki egyszer a **BambuStudio** mappát (vagy az OrcaSlicerét), és a Bambu Bar beolvassa az ott mentett hozzáférési kódokat. Egy másik Mac **BambuStudio.conf** fájlját is ide húzhatod."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scegli una volta la sua cartella **BambuStudio** (o quella di OrcaSlicer) e Bambu Bar legge i codici di accesso salvati. Puoi anche trascinare qui un **BambuStudio.conf** da un altro Mac."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "**BambuStudio**フォルダ（またはOrcaSlicerのフォルダ）を一度選択すると、Bambu Barが保存されたアクセスコードを読み込みます。別のMacの**BambuStudio.conf**をここにドロップすることもできます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "**BambuStudio** 폴더(또는 OrcaSlicer 폴더)를 한 번 선택하면 Bambu Bar가 저장된 액세스 코드를 읽습니다. 다른 Mac의 **BambuStudio.conf** 파일을 여기에 놓을 수도 있습니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kies eenmalig de map **BambuStudio** (of die van OrcaSlicer) en Bambu Bar leest de opgeslagen toegangscodes. U kunt hier ook een **BambuStudio.conf** van een andere Mac neerzetten."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wybierz raz jego folder **BambuStudio** (lub folder OrcaSlicer), a Bambu Bar odczyta zapisane w nim kody dostępu. Możesz tu też upuścić plik **BambuStudio.conf** z innego Maca."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escolha uma vez a pasta **BambuStudio** (ou a do OrcaSlicer) e o Bambu Bar lê os códigos de acesso salvos nela. Também dá para soltar aqui um **BambuStudio.conf** de outro Mac."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Один раз выберите папку **BambuStudio** (или папку OrcaSlicer), и Bambu Bar прочитает сохранённые в ней коды доступа. Сюда можно перетащить и **BambuStudio.conf** с другого Mac."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Välj dess **BambuStudio**-mapp (eller OrcaSlicers) en gång, så läser Bambu Bar åtkomstkoderna som sparats där. Du kan också släppa en **BambuStudio.conf** från en annan Mac här."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "**BambuStudio** klasörünü (veya OrcaSlicer'ınkini) bir kez seç; Bambu Bar kaydedilen erişim kodlarını okur. Başka bir Mac'teki **BambuStudio.conf** dosyasını da buraya bırakabilirsin."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Один раз виберіть папку **BambuStudio** (або папку OrcaSlicer), і Bambu Bar прочитає збережені в ній коди доступу. Сюди також можна перетягнути **BambuStudio.conf** з іншого Mac."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "选择一次其 **BambuStudio** 文件夹（或 OrcaSlicer 的文件夹），Bambu Bar 就会读取其中保存的访问码。也可以将另一台 Mac 上的 **BambuStudio.conf** 拖到这里。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選擇一次其 **BambuStudio** 檔案夾（或 OrcaSlicer 的檔案夾），Bambu Bar 就會讀取其中儲存的存取碼。也可以將另一台 Mac 上的 **BambuStudio.conf** 拖放到這裡。"
+          }
+        }
+      }
+    },
+    "Choose the BambuStudio or OrcaSlicer folder. Bambu Bar only reads the printers' access codes from it.": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vyberte složku BambuStudio nebo OrcaSlicer. Bambu Bar z ní čte jen přístupové kódy tiskáren."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wählen Sie den Ordner BambuStudio oder OrcaSlicer. Bambu Bar liest daraus nur die Zugangscodes der Drucker."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elija la carpeta BambuStudio u OrcaSlicer. Bambu Bar solo lee de ella los códigos de acceso de las impresoras."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisissez le dossier BambuStudio ou OrcaSlicer. Bambu Bar n’y lit que les codes d’accès des imprimantes."
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Válaszd ki a BambuStudio vagy az OrcaSlicer mappát. A Bambu Bar csak a nyomtatók hozzáférési kódjait olvassa ki belőle."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scegli la cartella BambuStudio o OrcaSlicer. Bambu Bar legge solo i codici di accesso delle stampanti."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "BambuStudioまたはOrcaSlicerのフォルダを選択してください。Bambu Barはプリンターのアクセスコードだけを読み込みます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "BambuStudio 또는 OrcaSlicer 폴더를 선택하십시오. Bambu Bar는 프린터의 액세스 코드만 읽습니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kies de map BambuStudio of OrcaSlicer. Bambu Bar leest er alleen de toegangscodes van de printers uit."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wybierz folder BambuStudio lub OrcaSlicer. Bambu Bar odczytuje z niego tylko kody dostępu drukarek."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escolha a pasta BambuStudio ou OrcaSlicer. O Bambu Bar só lê dela os códigos de acesso das impressoras."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выберите папку BambuStudio или OrcaSlicer. Bambu Bar читает из неё только коды доступа принтеров."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Välj mappen BambuStudio eller OrcaSlicer. Bambu Bar läser bara skrivarnas åtkomstkoder därifrån."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "BambuStudio veya OrcaSlicer klasörünü seç. Bambu Bar oradan yalnızca yazıcıların erişim kodlarını okur."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Виберіть папку BambuStudio або OrcaSlicer. Bambu Bar читає з неї лише коди доступу принтерів."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "选择 BambuStudio 或 OrcaSlicer 文件夹。Bambu Bar 只会从中读取打印机的访问码。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選擇 BambuStudio 或 OrcaSlicer 檔案夾。Bambu Bar 只會從中讀取印表機的存取碼。"
           }
         }
       }
@@ -18868,6 +19187,112 @@
           "stringUnit": {
             "state": "translated",
             "value": "下載"
+          }
+        }
+      }
+    },
+    "Download and install updates automatically": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Automaticky stahovat a instalovat aktualizace"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Updates automatisch laden und installieren"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Descargar e instalar actualizaciones automáticamente"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Télécharger et installer automatiquement les mises à jour"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Frissítések automatikus letöltése és telepítése"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scarica e installa automaticamente gli aggiornamenti"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アップデートを自動的にダウンロードしてインストール"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "자동으로 업데이트 다운로드 및 설치"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Updates automatisch downloaden en installeren"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Automatycznie pobieraj i instaluj uaktualnienia"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Baixar e instalar atualizações automaticamente"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Автоматически загружать и устанавливать обновления"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hämta och installera uppdateringar automatiskt"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Güncellemeleri otomatik olarak indir ve yükle"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Автоматично завантажувати та встановлювати оновлення"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "自动下载并安装更新"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "自動下載並安裝更新項目"
           }
         }
       }
@@ -26024,6 +26449,112 @@
         }
       }
     },
+    "It makes no other network requests. Updates come from the App Store.": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Žádné další síťové požadavky neodesílá. Aktualizace přicházejí z App Storu."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Andere Netzwerkanfragen gibt es nicht. Updates kommen aus dem App Store."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No realiza ninguna otra solicitud de red. Las actualizaciones llegan desde el App Store."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elle ne fait aucune autre requête réseau. Les mises à jour viennent de l’App Store."
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Más hálózati kérést nem küld. A frissítések az App Store-ból érkeznek."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non effettua altre richieste di rete. Gli aggiornamenti arrivano dall'App Store."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "それ以外のネットワーク通信は行いません。アップデートはApp Storeから配信されます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "그 외의 네트워크 요청은 하지 않습니다. 업데이트는 App Store에서 제공됩니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Er zijn geen andere netwerkverzoeken. Updates komen uit de App Store."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie wykonuje żadnych innych połączeń sieciowych. Uaktualnienia pochodzą z App Store."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ele não faz nenhuma outra solicitação de rede. As atualizações vêm da App Store."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Других сетевых запросов нет. Обновления приходят из App Store."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Den gör inga andra nätverksförfrågningar. Uppdateringar kommer från App Store."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Başka hiçbir ağ isteği yapmaz. Güncellemeler App Store'dan gelir."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Інших мережевих запитів немає. Оновлення надходять з App Store."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "它不会发出其他任何网络请求。更新来自 App Store。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "它不會發出其他任何網路連線。更新項目來自 App Store。"
+          }
+        }
+      }
+    },
     "It starts quietly in the menu bar, without a Dock icon.": {
       "localizations": {
         "cs": {
@@ -26130,108 +26661,108 @@
         }
       }
     },
-    "Its only other request is the optional daily update check, which reads this project's latest release on GitHub and sends nothing about you or your printers. Turn it off in Settings → Updates.": {
+    "Its only other request is the optional daily update check, which reads this project's latest release on GitHub and sends nothing about you or your printers. Updates install only when they carry the developer's signature. Turn the check off in Settings → Updates.": {
       "localizations": {
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Jediný další požadavek je volitelná denní kontrola aktualizací, která načte nejnovější vydání projektu na GitHubu a neposílá nic o vás ani o vašich tiskárnách. Vypnete ji v Nastavení → Aktualizace."
+            "value": "Jediný další požadavek je volitelná denní kontrola aktualizací, která načte nejnovější vydání projektu na GitHubu a neposílá nic o vás ani o vašich tiskárnách. Aktualizace se nainstalují, jen pokud nesou podpis vývojáře. Kontrolu vypnete v Nastavení → Aktualizace."
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Die einzige weitere Anfrage ist die optionale tägliche Update-Prüfung. Sie ruft das neueste Release dieses Projekts auf GitHub ab und sendet nichts über Sie oder Ihre Drucker. Ausschalten unter Einstellungen → Updates."
+            "value": "Die einzige weitere Anfrage ist die optionale tägliche Update-Prüfung. Sie ruft das neueste Release dieses Projekts auf GitHub ab und sendet nichts über Sie oder Ihre Drucker. Updates werden nur installiert, wenn sie die Signatur des Entwicklers tragen. Prüfung ausschalten unter Einstellungen → Updates."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Su única otra solicitud es la comprobación diaria opcional de actualizaciones, que lee la última versión de este proyecto en GitHub y no envía nada sobre usted ni sobre sus impresoras. Desactívela en Ajustes → Actualizaciones."
+            "value": "Su única otra solicitud es la comprobación diaria opcional de actualizaciones, que lee la última versión de este proyecto en GitHub y no envía nada sobre usted ni sobre sus impresoras. Las actualizaciones solo se instalan si llevan la firma del desarrollador. Desactive la comprobación en Ajustes → Actualizaciones."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sa seule autre requête est la recherche quotidienne facultative de mises à jour, qui consulte la dernière version de ce projet sur GitHub et n’envoie rien sur vous ni sur vos imprimantes. Désactivez-la dans Réglages → Mises à jour."
+            "value": "Sa seule autre requête est la recherche quotidienne facultative de mises à jour, qui consulte la dernière version de ce projet sur GitHub et n’envoie rien sur vous ni sur vos imprimantes. Les mises à jour ne s’installent que si elles portent la signature du développeur. Désactivez la recherche dans Réglages → Mises à jour."
           }
         },
         "hu": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ezen kívül csak az opcionális napi frissítéskeresés küld kérést: lekéri a projekt legújabb kiadását a GitHubról, és semmit nem küld rólad vagy a nyomtatóidról. Kikapcsolható itt: Beállítások → Frissítések."
+            "value": "Ezen kívül csak az opcionális napi frissítéskeresés küld kérést: lekéri a projekt legújabb kiadását a GitHubról, és semmit nem küld rólad vagy a nyomtatóidról. A frissítések csak a fejlesztő aláírásával települnek. A keresés kikapcsolható itt: Beállítások → Frissítések."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "L'unica altra richiesta è il controllo giornaliero facoltativo degli aggiornamenti, che legge l'ultima release del progetto su GitHub e non invia nulla su di te o sulle tue stampanti. Puoi disattivarlo in Impostazioni → Aggiornamenti."
+            "value": "L'unica altra richiesta è il controllo giornaliero facoltativo degli aggiornamenti, che legge l'ultima release del progetto su GitHub e non invia nulla su di te o sulle tue stampanti. Gli aggiornamenti si installano solo se portano la firma dello sviluppatore. Puoi disattivare il controllo in Impostazioni → Aggiornamenti."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "それ以外の通信は、オプションの1日1回のアップデート確認のみです。GitHubでこのプロジェクトの最新リリースを確認するだけで、ユーザーやプリンターに関する情報は一切送信しません。設定 → アップデートでオフにできます。"
+            "value": "それ以外の通信は、オプションの1日1回のアップデート確認のみです。GitHubでこのプロジェクトの最新リリースを確認するだけで、ユーザーやプリンターに関する情報は一切送信しません。アップデートは開発者の署名がある場合にのみインストールされます。確認は設定 → アップデートでオフにできます。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "그 외의 요청은 선택 사항인 하루 한 번의 업데이트 확인뿐입니다. GitHub에서 이 프로젝트의 최신 릴리스를 확인할 뿐 사용자나 프린터에 관한 정보는 전송하지 않습니다. 설정 → 업데이트에서 끌 수 있습니다."
+            "value": "그 외의 요청은 선택 사항인 하루 한 번의 업데이트 확인뿐입니다. GitHub에서 이 프로젝트의 최신 릴리스를 확인할 뿐 사용자나 프린터에 관한 정보는 전송하지 않습니다. 업데이트는 개발자의 서명이 있는 경우에만 설치됩니다. 확인은 설정 → 업데이트에서 끌 수 있습니다."
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Het enige andere verzoek is de optionele dagelijkse updatecontrole, die de nieuwste release van dit project op GitHub bekijkt en niets over u of uw printers verstuurt. Zet deze uit in Instellingen → Updates."
+            "value": "Het enige andere verzoek is de optionele dagelijkse updatecontrole, die de nieuwste release van dit project op GitHub bekijkt en niets over u of uw printers verstuurt. Updates worden alleen geïnstalleerd als ze de handtekening van de ontwikkelaar dragen. Zet de controle uit in Instellingen → Updates."
           }
         },
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Jedyne inne połączenie to opcjonalne codzienne sprawdzanie uaktualnień, które odczytuje najnowsze wydanie tego projektu w serwisie GitHub i nie wysyła żadnych informacji o Tobie ani o Twoich drukarkach. Wyłączysz je w: Ustawienia → Uaktualnienia."
+            "value": "Jedyne inne połączenie to opcjonalne codzienne sprawdzanie uaktualnień, które odczytuje najnowsze wydanie tego projektu w serwisie GitHub i nie wysyła żadnych informacji o Tobie ani o Twoich drukarkach. Uaktualnienia instalują się tylko wtedy, gdy mają podpis dewelopera. Sprawdzanie wyłączysz w: Ustawienia → Uaktualnienia."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "A única outra solicitação é a verificação diária opcional de atualizações, que consulta a versão mais recente deste projeto no GitHub e não envia nada sobre você ou suas impressoras. Desative-a em Ajustes → Atualizações."
+            "value": "A única outra solicitação é a verificação diária opcional de atualizações, que consulta a versão mais recente deste projeto no GitHub e não envia nada sobre você ou suas impressoras. As atualizações só são instaladas se tiverem a assinatura do desenvolvedor. Desative a verificação em Ajustes → Atualizações."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Единственный другой запрос — необязательная ежедневная проверка обновлений: она читает последний выпуск проекта на GitHub и не передаёт никаких сведений о вас или ваших принтерах. Отключить её можно в разделе Настройки → Обновления."
+            "value": "Единственный другой запрос — необязательная ежедневная проверка обновлений: она читает последний выпуск проекта на GitHub и не передаёт никаких сведений о вас или ваших принтерах. Обновления устанавливаются, только если они подписаны разработчиком. Отключить проверку можно в разделе Настройки → Обновления."
           }
         },
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Den enda andra förfrågan är den valfria dagliga uppdateringskontrollen, som läser projektets senaste version på GitHub och inte skickar något om dig eller dina skrivare. Stäng av den i Inställningar → Uppdateringar."
+            "value": "Den enda andra förfrågan är den valfria dagliga uppdateringskontrollen, som läser projektets senaste version på GitHub och inte skickar något om dig eller dina skrivare. Uppdateringar installeras bara om de har utvecklarens signatur. Stäng av kontrollen i Inställningar → Uppdateringar."
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Yaptığı diğer tek istek isteğe bağlı günlük güncelleme denetimidir: GitHub'da bu projenin en son sürümünü okur ve senin veya yazıcıların hakkında hiçbir şey göndermez. Ayarlar → Güncellemeler bölümünden kapatabilirsin."
+            "value": "Yaptığı diğer tek istek isteğe bağlı günlük güncelleme denetimidir: GitHub'da bu projenin en son sürümünü okur ve senin veya yazıcıların hakkında hiçbir şey göndermez. Güncellemeler yalnızca geliştiricinin imzasını taşıyorsa yüklenir. Denetimi Ayarlar → Güncellemeler bölümünden kapatabilirsin."
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Єдиний інший запит — необов’язкова щоденна перевірка оновлень: вона читає останній випуск цього проєкту на GitHub і нічого не надсилає ні про вас, ні про ваші принтери. Вимкнути її можна в Параметри → Оновлення."
+            "value": "Єдиний інший запит — необов’язкова щоденна перевірка оновлень: вона читає останній випуск цього проєкту на GitHub і нічого не надсилає ні про вас, ні про ваші принтери. Оновлення встановлюються, лише якщо вони підписані розробником. Вимкнути перевірку можна в Параметри → Оновлення."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "它唯一的其他网络请求是可选的每日更新检查：读取本项目在 GitHub 上的最新版本，不会发送任何关于您或您打印机的信息。可在“设置 → 更新”中关闭。"
+            "value": "它唯一的其他网络请求是可选的每日更新检查：读取本项目在 GitHub 上的最新版本，不会发送任何关于您或您打印机的信息。更新只有带有开发者签名时才会安装。可在“设置 → 更新”中关闭检查。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "它唯一的其他連線是選用的每日更新檢查，只會讀取此專案在 GitHub 上的最新版本，不會傳送任何關於您或您的印表機的資訊。可在「設定」→「更新項目」中關閉。"
+            "value": "它唯一的其他連線是選用的每日更新檢查，只會讀取此專案在 GitHub 上的最新版本，不會傳送任何關於您或您的印表機的資訊。更新項目只有帶有開發者簽名時才會安裝。可在「設定」→「更新項目」中關閉檢查。"
           }
         }
       }
@@ -34635,112 +35166,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "打開 App 以連接您的印表機"
-          }
-        }
-      }
-    },
-    "Opens the %@ release on GitHub": {
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Otevře vydání %@ na GitHubu"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Öffnet das Release %@ auf GitHub"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Abre la versión %@ en GitHub"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ouvre la version %@ sur GitHub"
-          }
-        },
-        "hu": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Megnyitja a GitHubon ezt a kiadást: %@"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Apre la release %@ su GitHub"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "GitHubで%@のリリースを開きます"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "GitHub에서 %@ 릴리스를 엽니다"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Opent de release %@ op GitHub"
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Otwiera wydanie %@ w serwisie GitHub"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Abre a versão %@ no GitHub"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Открывает выпуск %@ на GitHub"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Öppnar version %@ på GitHub"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "GitHub'da %@ sürümünü açar"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Відкриває випуск %@ на GitHub"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "在 GitHub 上打开 %@ 版本页面"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "在 GitHub 上打開 %@ 版本頁面"
           }
         }
       }
@@ -45167,6 +45592,112 @@
         }
       }
     },
+    "Shows what’s new in %@ and installs it": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ukáže novinky ve verzi %@ a nainstaluje ji"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zeigt die Neuerungen in %@ und installiert die Version"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muestra las novedades de %@ y la instala"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Présente les nouveautés de la version %@ et l’installe"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Megmutatja az újdonságokat (%@), és telepíti a verziót"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostra le novità della versione %@ e la installa"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@の新機能を表示してインストールします"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@의 새로운 기능을 보여 주고 설치합니다"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toont wat er nieuw is in %@ en installeert het"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pokazuje nowości w wersji %@ i ją instaluje"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostra as novidades da versão %@ e a instala"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показывает, что нового в версии %@, и устанавливает её"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Visar vad som är nytt i %@ och installerar den"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ sürümündeki yenilikleri gösterir ve yükler"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показує, що нового у версії %@, і встановлює її"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示 %@ 的新功能并安装"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示 %@ 的新功能並安裝"
+          }
+        }
+      }
+    },
     "Silent": {
       "comment": "Print speed profile",
       "localizations": {
@@ -53457,6 +53988,112 @@
         }
       }
     },
+    "Update…": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktualizovat…"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktualisieren …"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualizar…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mettre à jour…"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Frissítés…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aggiorna…"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アップデート…"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "업데이트…"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Werk bij…"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uaktualnij…"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Atualizar…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Обновить…"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uppdatera…"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Güncelle…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оновити…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更新…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更新⋯"
+          }
+        }
+      }
+    },
     "Use": {
       "comment": "Open panel button",
       "localizations": {
@@ -53666,6 +54303,112 @@
           "stringUnit": {
             "state": "translated",
             "value": "使用 %@ 中的存取碼"
+          }
+        }
+      }
+    },
+    "Use the codes Bambu Studio saved": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Použijte kódy uložené v Bambu Studiu"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die in Bambu Studio gespeicherten Codes verwenden"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usar los códigos guardados en Bambu Studio"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utiliser les codes enregistrés par Bambu Studio"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A Bambu Studio által mentett kódok használata"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usa i codici salvati da Bambu Studio"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bambu Studioに保存されたコードを使用"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bambu Studio에 저장된 코드 사용"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gebruik de codes die Bambu Studio heeft opgeslagen"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Użyj kodów zapisanych przez Bambu Studio"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usar os códigos salvos pelo Bambu Studio"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Использовать коды, сохранённые в Bambu Studio"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Använd koderna som Bambu Studio har sparat"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bambu Studio'nun kaydettiği kodları kullan"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Використати коди, збережені в Bambu Studio"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用 Bambu Studio 保存的访问码"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用 Bambu Studio 儲存的存取碼"
           }
         }
       }
@@ -55913,320 +56656,108 @@
         }
       }
     },
-    "You have %@. Download it from GitHub, then replace the app in your Applications folder.": {
+    "You have %@. Bambu Bar installs the update and restarts.": {
       "localizations": {
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Máte verzi %@. Stáhněte novou z GitHubu a pak nahraďte aplikaci ve složce Aplikace."
+            "value": "Máte verzi %@. Bambu Bar nainstaluje aktualizaci a restartuje se."
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sie haben %@. Laden Sie die neue Version von GitHub und ersetzen Sie dann die App im Ordner „Programme“."
+            "value": "Sie haben %@. Bambu Bar installiert das Update und startet neu."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tiene la versión %@. Descárguela de GitHub y sustituya la app en la carpeta Aplicaciones."
+            "value": "Tiene la versión %@. Bambu Bar instala la actualización y se reinicia."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vous avez la version %@. Téléchargez-la depuis GitHub, puis remplacez l’app dans votre dossier Applications."
+            "value": "Vous avez la version %@. Bambu Bar installe la mise à jour et redémarre."
           }
         },
         "hu": {
           "stringUnit": {
             "state": "translated",
-            "value": "A jelenlegi verzió: %@. Töltsd le a GitHubról, majd cseréld le az alkalmazást az Alkalmazások mappában."
+            "value": "A jelenlegi verzió: %@. A Bambu Bar telepíti a frissítést, majd újraindul."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hai la versione %@. Scaricala da GitHub, poi sostituisci l'app nella cartella Applicazioni."
+            "value": "Hai la versione %@. Bambu Bar installa l'aggiornamento e si riavvia."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "現在のバージョンは%@です。GitHubからダウンロードし、「アプリケーション」フォルダ内のアプリを置き換えてください。"
+            "value": "現在のバージョンは%@です。Bambu Barがアップデートをインストールして再起動します。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "현재 버전은 %@입니다. GitHub에서 다운로드한 다음 응용 프로그램 폴더의 앱을 교체하십시오."
+            "value": "현재 버전은 %@입니다. Bambu Bar가 업데이트를 설치하고 다시 시작합니다."
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "U hebt %@. Download de nieuwe versie van GitHub en vervang de app in uw map Programma's."
+            "value": "U hebt %@. Bambu Bar installeert de update en start opnieuw."
           }
         },
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Masz wersję %@. Pobierz nową z serwisu GitHub, a następnie zastąp aplikację w folderze Aplikacje."
+            "value": "Masz wersję %@. Bambu Bar zainstaluje uaktualnienie i uruchomi się ponownie."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sua versão é a %@. Baixe a nova no GitHub e substitua o app na pasta Aplicativos."
+            "value": "Sua versão é a %@. O Bambu Bar instala a atualização e reinicia."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "У вас версия %@. Загрузите новую с GitHub и замените приложение в папке «Программы»."
+            "value": "У вас версия %@. Bambu Bar установит обновление и перезапустится."
           }
         },
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Du har %@. Hämta den från GitHub och ersätt sedan appen i mappen Program."
+            "value": "Du har %@. Bambu Bar installerar uppdateringen och startar om."
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Yüklü sürüm: %@. Yeni sürümü GitHub'dan indir, ardından Uygulamalar klasöründeki uygulamayı değiştir."
+            "value": "Yüklü sürüm: %@. Bambu Bar güncellemeyi yükler ve yeniden başlar."
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "У вас версія %@. Завантажте нову з GitHub і замініть програму в папці «Програми»."
+            "value": "У вас версія %@. Bambu Bar встановить оновлення й перезапуститься."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "当前版本为 %@。请从 GitHub 下载新版本，然后替换“应用程序”文件夹中的 App。"
+            "value": "当前版本为 %@。Bambu Bar 会安装更新并重新启动。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "您目前使用的是 %@。請從 GitHub 下載，然後取代「應用程式」檔案夾中的 App。"
-          }
-        }
-      }
-    },
-    "You have %@. Download the new version from its GitHub release page, then replace the app in your Applications folder.": {
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Máte verzi %@. Stáhněte novou verzi ze stránky vydání na GitHubu a pak nahraďte aplikaci ve složce Aplikace."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sie haben %@. Laden Sie die neue Version von ihrer Release-Seite auf GitHub und ersetzen Sie dann die App im Ordner „Programme“."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tiene la versión %@. Descargue la nueva versión desde su página en GitHub y sustituya la app en la carpeta Aplicaciones."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vous avez la version %@. Téléchargez la nouvelle version depuis sa page de publication sur GitHub, puis remplacez l’app dans votre dossier Applications."
-          }
-        },
-        "hu": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A jelenlegi verzió: %@. Töltsd le az új verziót a GitHub kiadási oldaláról, majd cseréld le az alkalmazást az Alkalmazások mappában."
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hai la versione %@. Scarica la nuova versione dalla sua pagina release su GitHub, poi sostituisci l'app nella cartella Applicazioni."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "現在のバージョンは%@です。GitHubのリリースページから新しいバージョンをダウンロードし、「アプリケーション」フォルダ内のアプリを置き換えてください。"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "현재 버전은 %@입니다. GitHub 릴리스 페이지에서 새 버전을 다운로드한 다음 응용 프로그램 폴더의 앱을 교체하십시오."
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "U hebt %@. Download de nieuwe versie van de releasepagina op GitHub en vervang de app in uw map Programma's."
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Masz wersję %@. Pobierz nową wersję ze strony wydania w serwisie GitHub, a następnie zastąp aplikację w folderze Aplikacje."
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sua versão é a %@. Baixe a nova versão na página dela no GitHub e substitua o app na pasta Aplicativos."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "У вас версия %@. Загрузите новую версию со страницы выпуска на GitHub и замените приложение в папке «Программы»."
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Du har %@. Hämta den nya versionen från dess releasesida på GitHub och ersätt sedan appen i mappen Program."
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Yüklü sürüm: %@. Yeni sürümü GitHub'daki sürüm sayfasından indir, ardından Uygulamalar klasöründeki uygulamayı değiştir."
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "У вас версія %@. Завантажте нову версію зі сторінки випуску на GitHub і замініть програму в папці «Програми»."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "当前版本为 %@。请从 GitHub 的版本发布页面下载新版本，然后替换“应用程序”文件夹中的 App。"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "您目前使用的是 %@。請從 GitHub 版本頁面下載新版本，然後取代「應用程式」檔案夾中的 App。"
-          }
-        }
-      }
-    },
-    "You have %@. Replace the app in Applications with the new download.": {
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Máte verzi %@. Nahraďte aplikaci ve složce Aplikace nově staženou verzí."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sie haben %@. Ersetzen Sie die App in „Programme“ durch den neuen Download."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tiene la versión %@. Sustituya la app en Aplicaciones por la nueva descarga."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vous avez la version %@. Remplacez l’app dans Applications par le nouveau téléchargement."
-          }
-        },
-        "hu": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A jelenlegi verzió: %@. Cseréld le az alkalmazást az Alkalmazások mappában az új letöltéssel."
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hai la versione %@. Sostituisci l'app in Applicazioni con quella appena scaricata."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "現在のバージョンは%@です。「アプリケーション」内のアプリを、ダウンロードした新しいバージョンに置き換えてください。"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "현재 버전은 %@입니다. 응용 프로그램 폴더의 앱을 새로 다운로드한 앱으로 교체하십시오."
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "U hebt %@. Vervang de app in Programma's door de nieuwe download."
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Masz wersję %@. Zastąp aplikację w folderze Aplikacje nowo pobraną."
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sua versão é a %@. Substitua o app em Aplicativos pelo novo download."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "У вас версия %@. Замените приложение в папке «Программы» загруженной версией."
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Du har %@. Ersätt appen i Program med den nya nedladdningen."
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Yüklü sürüm: %@. Uygulamalar klasöründeki uygulamayı yeni indirilenle değiştir."
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "У вас версія %@. Замініть програму в папці «Програми» щойно завантаженою."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "当前版本为 %@。请用新下载的版本替换“应用程序”中的 App。"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "您目前使用的是 %@。請用新下載的版本取代「應用程式」中的 App。"
+            "value": "您目前使用的是 %@。Bambu Bar 會安裝更新項目並重新啟動。"
           }
         }
       }
@@ -56545,112 +57076,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "在桌面和「通知中心」查看您的印表機，提供三種尺寸。"
-          }
-        }
-      }
-    },
-    "You’re up to date": {
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Máte aktuální verzi"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sie verwenden die neueste Version"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tiene la última versión"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vous êtes à jour"
-          }
-        },
-        "hu": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Minden naprakész"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sei aggiornato"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "最新の状態です"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "최신 버전을 사용 중입니다"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "U bent up-to-date"
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Masz najnowszą wersję"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tudo atualizado"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Установлена последняя версия"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Du har den senaste versionen"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Güncel sürümü kullanıyorsun"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "У вас найновіша версія"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "已是最新版本"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "您使用的是最新版本"
           }
         }
       }

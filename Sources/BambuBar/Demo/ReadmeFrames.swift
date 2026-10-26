@@ -9,7 +9,8 @@ import SwiftUI
 /// every run and nothing on the screen is recorded.
 @MainActor
 enum ReadmeFrames {
-    static var isActive: Bool { CommandLine.arguments.contains("--readme-frames") }
+    /// Also on for `--store-media`, which renders from the same scripted demo.
+    static var isActive: Bool { CommandLine.arguments.contains("--readme-frames") || StoreMedia.directory != nil }
 
     static var directory: URL? {
         let a = CommandLine.arguments
@@ -19,7 +20,7 @@ enum ReadmeFrames {
 
     static let fps = 15.0
     /// Today at 9:41, the time the menu bar shows.
-    private static let start: Date = Calendar.current.date(bySettingHour: 9, minute: 41, second: 0, of: Date()) ?? Date()
+    static let start: Date = Calendar.current.date(bySettingHour: 9, minute: 41, second: 0, of: Date()) ?? Date()
 
     /// Seconds into the animation at a frame's clock.
     static func elapsed(_ clock: Date) -> TimeInterval { clock.timeIntervalSince(start) }
@@ -43,7 +44,7 @@ enum ReadmeFrames {
 
     /// The demo print at `t` seconds: printing with the progress climbing, the chamber light switching on,
     /// then (from `pauseAt`) paused because the filament ran out.
-    private static func status(at t: Double, pauseAt: Double?) -> PrinterStatus {
+    static func status(at t: Double, pauseAt: Double?) -> PrinterStatus {
         var s = PrinterStatus.sample
         s.jobName = "Articulated Dragon"
         s.totalLayers = 284
@@ -87,7 +88,7 @@ enum ReadmeFrames {
     /// A tour of the window: the printer page with its 3D model, the filament page, every printer, then back to
     /// the start so the loop is seamless.
     private static func renderWindow(into dir: URL, store: PrinterStore, session: PrinterSession) {
-        let windowSize = CGSize(width: 1000, height: 660)
+        let windowSize = FramedWindow.standardSize
         let size = CGSize(width: windowSize.width + 56, height: windowSize.height + 56)
         var stops: [(AppSection, Double)] = [(.overview, 5.2), (.filament, 3.8)]
         if store.hasMultiplePrinters { stops.append((.fleet, 3.8)) }
@@ -106,12 +107,7 @@ enum ReadmeFrames {
             let e = blend * blend * (3 - 2 * blend)
             let view = ZStack {
                 DesktopBackdrop()
-                ReadmeWindow(store: store, section: stops[index].0, next: next, blend: e)
-                    .frame(width: windowSize.width, height: windowSize.height)
-                    .overlay(alignment: .topLeading) { TrafficLights().padding(.leading, 20).padding(.top, 19) }
-                    .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
-                    .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous).strokeBorder(.white.opacity(0.14), lineWidth: 1))
-                    .shadow(color: .black.opacity(0.45), radius: 18, y: 10)
+                FramedWindow(store: store, section: stops[index].0, next: next, blend: e, size: windowSize)
             }
             .environment(\.demoClock, clock)
             .environment(\.colorScheme, .dark)
@@ -174,6 +170,12 @@ enum ReadmeFrames {
 
     private static func save<V: View>(_ view: V, size: CGSize, scale: CGFloat, to dir: URL, index: Int) {
         try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        let url = dir.appendingPathComponent(String(format: "frame-%04d.png", index + 1))
+        try? render(view, size: size, scale: scale)?.representation(using: .png, properties: [:])?.write(to: url)
+    }
+
+    /// Draws `view` offscreen at `size` points, `scale` pixels per point.
+    static func render<V: View>(_ view: V, size: CGSize, scale: CGFloat) -> NSBitmapImageRep? {
         let host = NSHostingView(rootView: view.frame(width: size.width, height: size.height))
         host.frame = NSRect(origin: .zero, size: size)
         let window = self.window ?? {
@@ -191,25 +193,27 @@ enum ReadmeFrames {
         host.layoutSubtreeIfNeeded()
         guard let rep = NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: Int(size.width * scale), pixelsHigh: Int(size.height * scale),
                                          bitsPerSample: 8, samplesPerPixel: 4, hasAlpha: true, isPlanar: false,
-                                         colorSpaceName: .deviceRGB, bytesPerRow: 0, bitsPerPixel: 0) else { return }
+                                         colorSpaceName: .deviceRGB, bytesPerRow: 0, bitsPerPixel: 0) else { return nil }
         rep.size = size
         host.cacheDisplay(in: host.bounds, to: rep)
-        let url = dir.appendingPathComponent(String(format: "frame-%04d.png", index + 1))
-        try? rep.representation(using: .png, properties: [:])?.write(to: url)
+        return rep
     }
 }
 
 // MARK: - Scenes
 
 /// A desktop with a menu bar; Bambu Bar's status item is open and its panel hangs below it on frosted glass.
-private struct MenuBarScene: View {
+struct MenuBarScene: View {
     let store: PrinterStore
     let size: CGSize
     let clock: Date
     var showsAll = false
 
     private let barHeight: CGFloat = 26
-    private let panelOrigin = CGPoint(x: 196, y: 32)
+    /// The panel's top edge, just under the menu bar.
+    static let panelTop: CGFloat = 32
+    /// Under the status item: everything right of it in the menu bar is 404 points wide.
+    private var panelOrigin: CGPoint { CGPoint(x: size.width - 404, y: Self.panelTop) }
 
     var body: some View {
         ZStack(alignment: .topLeading) {
@@ -274,7 +278,7 @@ private struct MenuBarScene: View {
 }
 
 /// The three window buttons, drawn because offscreen rendering only captures the window's content.
-private struct TrafficLights: View {
+struct TrafficLights: View {
     var body: some View {
         HStack(spacing: 8) {
             ForEach([Color(red: 1, green: 0.37, blue: 0.34), Color(red: 1, green: 0.74, blue: 0.18),
@@ -386,6 +390,25 @@ private struct WidgetStageFrame: View {
 
 /// The main window for the README: a page (crossfading into the next) beside a drawn copy of the sidebar (the
 /// real sidebar's material doesn't render offscreen).
+/// The README window as it sits on the desktop: rounded, outlined, with its window buttons and shadow.
+struct FramedWindow: View {
+    let store: PrinterStore
+    let section: AppSection
+    var next: AppSection
+    var blend: Double = 0
+    static let standardSize = CGSize(width: 1000, height: 660)
+    var size = standardSize
+
+    var body: some View {
+        ReadmeWindow(store: store, section: section, next: next, blend: blend)
+            .frame(width: size.width, height: size.height)
+            .overlay(alignment: .topLeading) { TrafficLights().padding(.leading, 20).padding(.top, 19) }
+            .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+            .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous).strokeBorder(.white.opacity(0.14), lineWidth: 1))
+            .shadow(color: .black.opacity(0.45), radius: 18, y: 10)
+    }
+}
+
 private struct ReadmeWindow: View {
     let store: PrinterStore
     let section: AppSection
