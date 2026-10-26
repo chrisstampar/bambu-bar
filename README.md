@@ -1,5 +1,7 @@
 # Bambu Bar
 
+[Visit bambubar.app](https://bambubar.app) and please consider buying a license to support the project and its continued development.
+
 ![Bambu Bar window touring three pages: the Printer page with a turning 3D P2S printing in gold PLA Silk+ at 65% with time left, controls, temperatures and fans; the Filament page with Bambu Lab spools by colour name and grams left, a SUNLU spool and the external spool; and All Printers, six printers with the paused one first](.github/assets/showcase.webp)
 
 <p align="center">
@@ -62,7 +64,7 @@ Closing the window keeps Bambu Bar running in the menu bar without a Dock icon. 
 
 ### About downloaded builds
 
-Builds on the [Releases](https://github.com/rolottr/bambu-bar/releases) page are **universal, Developer ID signed and notarized by Apple**, so they open normally after you download them. Builds you make yourself without a Developer ID certificate, and the artifacts of the [Actions](https://github.com/rolottr/bambu-bar/actions/workflows/build.yml) workflow, are ad-hoc signed: they run on the Mac that built them, but the desktop widget only loads in a Developer ID signed copy.
+The GitHub **1.3.1** download is **universal and Developer ID signed, but not notarized by Apple**. macOS may block it or show a security warning. Only choose to run it if you trust the source and accept the risk. Visit [bambubar.app](https://bambubar.app) to support the project. Builds you make yourself without a Developer ID certificate, and the artifacts of the [Actions](https://github.com/rolottr/bambu-bar/actions/workflows/build.yml) workflow, are ad-hoc signed: they run on the Mac that built them, but the desktop widget only loads in a Developer ID signed copy.
 
 ### Controlling prints
 
